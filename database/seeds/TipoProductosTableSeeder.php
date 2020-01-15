@@ -16,5 +16,6 @@ class TipoProductosTableSeeder extends Seeder
         TipoProducto::create(['nombre' => 'DILUENTE']);
         TipoProducto::create(['nombre' => 'LISANTE']);
         TipoProducto::create(['nombre' => 'RINSE']);
+        TipoProducto::create(['nombre' => 'AGUA PROCESADA']);
     }
 }

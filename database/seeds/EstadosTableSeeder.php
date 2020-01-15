@@ -15,5 +15,13 @@ class EstadosTableSeeder extends Seeder
         Estado::create(['nombre' => 'LARA']);
         Estado::create(['nombre' => 'YARACUY']);
         Estado::create(['nombre' => 'PORTUGUESA']);
+        Estado::create(['nombre' => 'ARAGUA']);
+        Estado::create(['nombre' => 'CARABOBO']);
+        Estado::create(['nombre' => 'ZULIA']);
+        Estado::create(['nombre' => 'TRUJILLO']);
+        Estado::create(['nombre' => 'BARINAS']);
+        Estado::create(['nombre' => 'SUCRE']);
+        Estado::create(['nombre' => 'ANZOATEGUI']);
+        Estado::create(['nombre' => 'DISTRITO CAPITAL']);
     }
 }
