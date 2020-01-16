@@ -30,7 +30,7 @@ class PruebaRinseController extends Controller
     public function create()
     {
         $pruebarinses = new PruebaRinse;
-        $lotes = Lote::where('prueba', 'RINSE')->orderBy('numero', 'desc')->get();
+        $lotes = Lote::where('prueba', 'RINSE')->where('certificado', false)->orderBy('numero', 'desc')->get();
         $titulo = "Crear Prueba Lisante";
         if (count($lotes) == 0)
         {
@@ -52,14 +52,12 @@ class PruebaRinseController extends Controller
         $pruebarinses->ph = $request->get('ph');
         $pruebarinses->conductividad = $request->get('conductividad');
         $pruebarinses->lotes_id = $request->get('lotes_id');
+        $pruebarinses->numero = '';
         $pruebarinses->save();
+        $pruebarinses->numero = $pruebarinses->lotes->numero.'-'.$pruebarinses->id;
+        $pruebarinses->update();
         $bitacoras = new Bitacora;
-        $bitacoras->accion = 'C';
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebarinses->lotes->numero;
-        $bitacoras->tabla = 'pruebarinsess';
-        $bitacoras->tabla_id = $pruebarinses->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $pruebarinses->numero, $pruebarinses->id, 'pruebarinses', auth()->user()->id);
         session()->flash('message', 'Prueba creada con éxito!');
         return redirect()->route('pruebarinses.index');
     }
@@ -97,15 +95,10 @@ class PruebaRinseController extends Controller
      */
     public function update(UpdatePruebaRinseRequest $request, PruebaRinse $pruebarinses)
     {
-        $bitacoras = new Bitacora;
         $pruebarinses->ph = $request->get('ph');
         $pruebarinses->conductividad = $request->get('conductividad');
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebarinses->lotes->numero;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'pruebarinses';
-        $bitacoras->tabla_id = $pruebarinses->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras = new Bitacora;
+         $bitacoras->register($bitacoras, 'U', $pruebarinses->numero, $pruebarinses->id, 'pruebarinses', auth()->user()->id);
         $pruebarinses->update();
         session()->flash('message', 'Prueba actualizada!');
         return redirect()->route('pruebarinses.index');
@@ -122,12 +115,7 @@ class PruebaRinseController extends Controller
        try {
             $pruebarinses->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$pruebarinses->lotes->numero;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'pruebarinses';
-            $bitacoras->tabla_id = $pruebarinses->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $pruebarinses->numero, $pruebarinses->id, 'pruebarinses', auth()->user()->id);
             session()->flash('message', 'Prueba eliminada!');
             return redirect()->route('pruebarinses.index');
         }

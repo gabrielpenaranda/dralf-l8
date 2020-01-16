@@ -45,12 +45,7 @@ class TipoPersonaController extends Controller
         $tipopersonas->nombre = strtoupper($request->get('nombre'));
         $tipopersonas->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$tipopersonas->nombre;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'tipopersonas';
-        $bitacoras->tabla_id = $tipopersonas->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $tipopersonas->numero, $tipopersonas->id, 'tipopersonas', auth()->user()->id);
         session()->flash('message', 'Tipo Persona creado con éxito!');
         return redirect()->route('tipopersonas.index');
     }
@@ -90,12 +85,7 @@ class TipoPersonaController extends Controller
         $tipopersonas->nombre = strtoupper($request->get('nombre'));
         $tipopersonas->update();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro";
-        $bitacoras->accion = 'U';
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->tabla = 'tipopersonas';
-        $bitacoras->tabla_id = $tipopersonas->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'U', $tipopersonas->nombre, $terceros->id, 'terceros', auth()->user()->id);
         session()->flash('message', 'Tipo Persona actualizado!');
         return redirect()->route('tipopersonas.index');
     }
@@ -111,12 +101,7 @@ class TipoPersonaController extends Controller
         try {
             $tipopersonas->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$tipopersonas->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'tipopersonas';
-            $bitacoras->tabla_id = $tipopersonas->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $tipopersonas->nombre, $terceros->id, 'terceros', auth()->user()->id);
             session()->flash('message', 'Tipo Persona eliminado!');
             return redirect()->route('tipopersonas.index');
         }

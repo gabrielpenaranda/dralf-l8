@@ -8,7 +8,7 @@ class Lote extends Model
 {
     protected $table = 'lotes';
 
-    protected $fillable = ['fecha_produccion', 'fecha_vencimiento', 'cantidad_producida', 'cantidad_prueba', 'cantidad_disponible', 'numero', 'costo', 'productos_id', 'prueba', 'certificado'];
+    protected $fillable = ['fecha_produccion', 'fecha_vencimiento', 'cantidad_producida', 'cantidad_prueba', 'cantidad_disponible', 'numero', 'costo', 'productos_id', 'prueba', 'certificado', 'numero_certificado'];
 
     public $timestamps = false;
 

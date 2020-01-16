@@ -30,7 +30,7 @@ class PruebaAnticoagulanteController extends Controller
     public function create()
     {
         $pruebaanticoagulantes = new PruebaAnticoagulante;
-        $lotes = Lote::where('prueba', 'ANTICOAGULANTE')->orderBy('numero', 'desc')->get();
+        $lotes = Lote::where('prueba', 'ANTICOAGULANTE')->where('certificado', false)->orderBy('numero', 'desc')->get();
         $titulo = "Crear Prueba Anticoagulante";
         if (count($lotes) == 0)
         {
@@ -52,14 +52,12 @@ class PruebaAnticoagulanteController extends Controller
         $pruebaanticoagulantes->ph = $request->get('ph');
         $pruebaanticoagulantes->tubo = $request->get('tubo');
         $pruebaanticoagulantes->lotes_id = $request->get('lotes_id');
+        $pruebaanticoagulantes->numero = '';
         $pruebaanticoagulantes->save();
+        $pruebaanticoagulantes->numero = $pruebaanticoagulantes->lotes->numero.'-'.$pruebaanticoagulantes->id;
+        $pruebaanticoagulantes->update();
         $bitacoras = new Bitacora;
-        $bitacoras->accion = 'C';
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebaanticoagulantes->lotes->numero;
-        $bitacoras->tabla = 'pruebaanticoagulantess';
-        $bitacoras->tabla_id = $pruebaanticoagulantes->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $pruebaanticoagulantes->numero, $pruebaanticoagulantes->id, 'pruebaanticoagulantes', auth()->user()->id);
         session()->flash('message', 'Prueba creada con éxito!');
         return redirect()->route('pruebaanticoagulantes.index');
     }
@@ -97,17 +95,12 @@ class PruebaAnticoagulanteController extends Controller
      */
     public function update(UpdatePruebaAnticoagulanteRequest $request, PruebaAnticoagulante $pruebaanticoagulantes)
     {
-        $bitacoras = new Bitacora;
         // $prueba = $pruebaanticoagulantes->lotes->numero;
         $pruebaanticoagulantes->ph = $request->get('ph');
         $pruebaanticoagulantes->tubo = $request->get('tubo');
         $pruebaanticoagulantes->update();
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebaanticoagulantes->lotes->numero;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'pruebaanticoagulantes';
-        $bitacoras->tabla_id = $pruebaanticoagulantes->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras = new Bitacora;
+        $bitacoras->register($bitacoras, 'U', $pruebaanticoagulantes->numero, $pruebaanticoagulantes->id, 'pruebaanticoagulantes', auth()->user()->id);
         session()->flash('message', 'Prueba actualizada!');
         return redirect()->route('pruebaanticoagulantes.index');
     }
@@ -123,12 +116,7 @@ class PruebaAnticoagulanteController extends Controller
        try {
             $pruebaanticoagulantes->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$pruebaanticoagulantes->lotes->numero;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'pruebaanticoagulantes';
-            $bitacoras->tabla_id = $pruebaanticoagulantes->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $pruebaanticoagulantes->numero, $pruebaanticoagulantes->id, 'pruebaanticoagulantes', auth()->user()->id);
             session()->flash('message', 'Prueba eliminada!');
             return redirect()->route('pruebaanticoagulantes.index');
         }

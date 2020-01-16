@@ -24,7 +24,22 @@ class FacturaController extends Controller
    */
   public function index($modulo)
   {
-    $eliminar = Factura::where('numero', 0)->delete();
+    // Elimina facturas no generadas, con numero 0 y devuelve existencia a lote
+    $eliminar = Factura::where('numero', 0)->get();
+    $ec = $eliminar->count();
+    foreach($eliminar as $e)
+    {
+      $eliminardetalle = DetalleFactura::where('facturas_id', $e->id)->get();
+        foreach($eliminardetalle as $ed)
+        {
+          $lote = Lote::where('id', $ed->lotes_id)->first();
+          $lote->cantidad_disponible += $ed->cantidad;
+          $lote->update();
+          $ed->delete();
+        }
+      $e->delete();
+    }
+    // 
     if ($modulo == "factura")
     {
       $facturas = Factura::where('documento', '=', 'factura')->orderBy('numero', 'desc')->paginate(10);
@@ -279,8 +294,10 @@ class FacturaController extends Controller
     //   $facturas->iva= 0;
     // }
     $facturas->update();
+    $factura = $modulo.' '.$facturas->numero;
+    $bitacoras = new Bitacora;
+    $bitacoras->register($bitacoras, 'C', $factura, $facturas->id, 'facturas', auth()->user()->id);
     session()->flash('message', 'Documento generado con éxito');
-    // dd($detallefacturas);
     return view('dralf.facturas.show')->with(['facturas' => $facturas, 'detallefacturas'=> $detallefacturas, 'modulo' => $modulo]);
   }
 
@@ -373,9 +390,6 @@ class FacturaController extends Controller
       Fpdf::Cell(50,5, 'TOTAL NOTA DE ENTREGA ');
       Fpdf::SetXY(160,251);
       Fpdf::Cell(45,5, number_format($acumulador, 2, ',', '.'),0,0,'R');
-	    // Fpdf::Output('I', $nombre);
-      // Fpdf::Output('F', $nombre);
-      // session()->flash('message', 'Nota de Entrega impresa con éxito');
     }
     else
     {
@@ -384,12 +398,8 @@ class FacturaController extends Controller
       //
       $nombre = public_path().'/factura_'.$facturas->numero.'.pdf';
       Fpdf::AddPage('L', array(233,160));
-      // Fpdf::AddPage('P', 'Letter');
       Fpdf::SetFont('Arial', 'B', 8);
       Fpdf::SetAutoPageBreak(true, 10);
-      // Fpdf::SetTopMargin(10);
-      // Fpdf::SetLeftMargin(10);
-      // Fpdf::SetRightMargin(10);
       Fpdf::SetFont('Arial', 'B', 8);
       Fpdf::SetXY(167,34);
       Fpdf::Cell(50, 4, utf8_decode('FACTURA Nº  ').$facturas->numero);
@@ -468,14 +478,12 @@ class FacturaController extends Controller
       Fpdf::Cell(30,4, 'TOTAL NETO ');
       Fpdf::SetXY(190,128);
       Fpdf::Cell(45,4, number_format($acumulador+($acumulador*0.16), 2, ',', '.'),0,0,'R');
-      // session()->flash('message', 'Factura impresa con éxito');
+   
     }
-    // Fpdf::Output('S', $nombre);
+   
     Fpdf::Output('F', $nombre);
-    $fp = fopen($nombre, 'r');
-    
-    return redirect()->route('facturas.index', ['modulo' => $modulo]);
-    
+   
+    return view('dralf.facturas.print')->with(['nombre' => $nombre]);
 
   }
 

@@ -103,6 +103,8 @@ class DivisaController extends Controller
     {
         $divisas->cambio = (float)$request->get('cambio');
         $divisas->update();
+        $bitacoras = new Bitacora;
+        $bitacoras->register($bitacoras, 'U', $divisas->nombre, $divisas->id, 'divisas', auth()->user()->id);
         $productos = Producto::all();
         // $productos = DB::table('productos')->get();
         // dd(count($productos));
@@ -115,6 +117,8 @@ class DivisaController extends Controller
             $nuevoprecio = $precio * $cambio;
             $p->precio = (float)$nuevoprecio;
             $p->update();
+            $bitacoras = new Bitacora;
+            $bitacoras->register($bitacoras, 'U', $p->nombre, $p->id, 'productos', auth()->user()->id);
         }
         
         session()->flash('message', 'Precios actualizados!');

@@ -144,6 +144,7 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::get('/edit/{lotes}', 'LoteController@edit')->name('lotes.edit');
     Route::put('/update/{lotes}', 'LoteController@update')->name('lotes.update');
     Route::get('/certify/{lotes}', 'LoteController@certify')->name('lotes.certify');
+    Route::get('/print/{lotes}', 'LoteController@print')->name('lotes.print');
   });
 
   Route::prefix('materiaprimas')->group(function()

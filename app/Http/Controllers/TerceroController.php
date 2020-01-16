@@ -57,12 +57,7 @@ class TerceroController extends Controller
         $terceros->ciudades_id = $request->get('ciudades_id');
         $terceros->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$terceros->rif." ".$terceros->nombre." ".$terceros->razon_social;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'terceros';
-        $bitacoras->tabla_id = $terceros->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $terceros->nombre, $terceros->id, 'terceros', auth()->user()->id);
         session()->flash('message', 'Tercero creado con éxito!');
         return redirect()->route('terceros.index');
     }
@@ -110,14 +105,9 @@ class TerceroController extends Controller
         $terceros->proveedor = (bool)$request->get('proveedor');
         $terceros->laboratorio = (bool)$request->get('laboratorio');
         $terceros->ciudades_id = $request->get('ciudades_id');
-        $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro";
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'terceros';
-        $bitacoras->tabla_id = $terceros->id;
-        $bitacoras->user_id = auth()->user()->id;
         $terceros->update();
-        $bitacoras->save();
+        $bitacoras = new Bitacora;
+        $bitacoras->register($bitacoras, 'U', $terceros->nombre, $terceros->id, 'terceros', auth()->user()->id);
         session()->flash('message', 'Tercero actualizado!');
         return redirect()->route('terceros.index');
     }
@@ -133,12 +123,7 @@ class TerceroController extends Controller
         try {
             $terceros->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$terceros->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'ciudades';
-            $bitacoras->tabla_id = $terceros->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $terceros->nombre, $terceros->id, 'terceros', auth()->user()->id);
             session()->flash('message', 'Tercero eliminada!');
             return redirect()->route('terceros.index');
         }

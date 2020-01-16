@@ -8,7 +8,7 @@ class PruebaLisante extends Model
 {
     protected $table = 'pruebalisantes';
 
-    protected $fillable = ['ph', 'conductividad', 'contaje', 'lotes_id'];
+    protected $fillable = ['ph', 'conductividad', 'contaje', 'lotes_id', 'numero'];
 
     public $timestamps = false;
 

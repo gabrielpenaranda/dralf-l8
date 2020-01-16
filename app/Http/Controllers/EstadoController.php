@@ -45,12 +45,7 @@ class EstadoController extends Controller
         $estados->nombre = strtoupper($request->get('nombre'));
         $estados->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$estados->nombre;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'estados';
-        $bitacoras->tabla_id = $estados->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $estados->nombre, $estados->id, 'estados', auth()->user()->id);
         session()->flash('message', 'Estado creado con éxito!');
         return redirect()->route('estados.index');
     }
@@ -90,12 +85,7 @@ class EstadoController extends Controller
         $estados->nombre = strtoupper($request->get('nombre'));
         $estados->update();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$estados->nombre;
-        $bitacoras->accion = "U";
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->tabla = 'estados';
-        $bitacoras->tabla_id = $estados->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'U', $estados->nombre, $estados->id, 'estados', auth()->user()->id);
         session()->flash('message', 'Estado actualizado!');
         return redirect()->route('estados.index');
     }
@@ -111,12 +101,7 @@ class EstadoController extends Controller
         try {
             $estados->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$estados->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'estados';
-            $bitacoras->tabla_id = $estados->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $estados->nombre, $estados->id, 'estados', auth()->user()->id);
             session()->flash('message', 'Estado eliminado!');
             return redirect()->route('estados.index');
         }

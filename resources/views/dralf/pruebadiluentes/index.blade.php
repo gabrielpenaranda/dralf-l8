@@ -56,8 +56,10 @@
                                                     {{ method_field('DELETE') }}
                                                      <div class="buttons has-addons is-centered">
                                                         <a class="button is-primary is-small is-outlined" href="{{ route('pruebadiluentes.show', ['pruebadiluentes' => $p->id]) }}" title="Editar">Ver</a>
+                                                        @if (!$p->lotes->certificado)
                                                         <a class="button is-link is-small is-outlined" href="{{ route('pruebadiluentes.edit', ['pruebadiluentes' => $p->id]) }}" title="Editar">Editar</a>
                                                         <button class="button is-danger is-small is-outlined confirmation" title="Eliminar">Eliminar</button>
+                                                        @endif
                                                     </div>
                                                 </form>
                                             @endif

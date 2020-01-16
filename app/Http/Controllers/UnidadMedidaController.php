@@ -46,12 +46,7 @@ class UnidadMedidaController extends Controller
         $unidadmedidas->abreviatura = strtoupper($request->get('abreviatura'));
         $unidadmedidas->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$unidadmedidas->unidad;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'unidadmedidas';
-        $bitacoras->tabla_id = $unidadmedidas->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $unidadmedidas->unidad, $unidadmedidas->id, 'unidadmedidas', auth()->user()->id);
         session()->flash('message', 'Unidad de Medida creado con éxito!');
         return redirect()->route('unidadmedidas.index');
     }
@@ -92,12 +87,7 @@ class UnidadMedidaController extends Controller
         $unidadmedidas->abreviatura = strtoupper($request->get('abreviatura'));
         $unidadmedidas->update();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$unidadmedidas->unidad;
-        $bitacoras->accion = 'U';
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->tabla = 'unidadmedidas';
-        $bitacoras->tabla_id = $unidadmedidas->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'U', $unidadmedidas->unidad, $unidadmedidas->id, 'unidadmedidas', auth()->user()->id);
         session()->flash('message', 'Unidad de Medida actualizado!');
         return redirect()->route('unidadmedidas.index');
     }

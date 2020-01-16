@@ -51,12 +51,7 @@ class MateriaPrimaController extends Controller
         $materiaprimas->fraccionable = (boolean)$request->get('fraccionable');
         $materiaprimas->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$materiaprimas->nombre;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'materiaprimas';
-        $bitacoras->tabla_id = $materiaprimas->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $materiaprimas->nombre, $materiaprimas->id, 'materiaprimas', auth()->user()->id);
         session()->flash('message', 'Materia Prima creado con éxito!');
         return redirect()->route('materiaprimas.index');
     }
@@ -99,13 +94,8 @@ class MateriaPrimaController extends Controller
         $materiaprimas->unidadmedidas_id = $request->get('unidadmedidas_id');
         $materiaprimas->fraccionable = (boolean)$request->get('fraccionable');
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$materiaprimas->nombre;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'materiaprimas';
-        $bitacoras->tabla_id = $materiaprimas->id;
-        $bitacoras->user_id = auth()->user()->id;
+        $bitacoras->register($bitacoras, 'U', $materiaprimas->nombre, $materiaprimas->id, 'materiaprimas', auth()->user()->id);
         $materiaprimas->update();
-        $bitacoras->save();
         session()->flash('message', 'Materia Prima actualizada!');
         return redirect()->route('materiaprimas.index');
     }
@@ -121,12 +111,7 @@ class MateriaPrimaController extends Controller
         try {
             $materiaprimas->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$materiaprimas->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'materiaprimas';
-            $bitacoras->tabla_id = $materiaprimas->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $materiaprimas->nombre, $materiaprimas->id, 'materiaprimas', auth()->user()->id);
             session()->flash('message', 'Materia Prima eliminada!');
             return redirect()->route('materiaprimas.index');
         }

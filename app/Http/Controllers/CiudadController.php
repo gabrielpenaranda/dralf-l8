@@ -48,12 +48,7 @@ class CiudadController extends Controller
         $ciudades->estados_id = $request->get('estados_id');
         $ciudades->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$ciudades->nombre;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'ciudades';
-        $bitacoras->tabla_id = $ciudades->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $ciudades->nombre, $ciudades->id, 'ciudades', auth()->user()->id);
         session()->flash('message', 'Ciudad creada con éxito!');
         return redirect()->route('ciudades.index');
     }
@@ -93,12 +88,7 @@ class CiudadController extends Controller
         $ciudades->nombre = strtoupper($request->get('nombre'));
         $ciudades->estados_id = $request->get('estados_id');
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$ciudades->nombre;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'ciudades';
-        $bitacoras->tabla_id = $ciudades->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'U', $ciudades->nombre, $ciudades->id, 'ciudades', auth()->user()->id);
         $ciudades->update();
         session()->flash('message', 'Ciudad actualizada!');
         return redirect()->route('ciudades.index');
@@ -115,12 +105,7 @@ class CiudadController extends Controller
         try {
             $ciudades->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$ciudades->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'ciudades';
-            $bitacoras->tabla_id = $ciudades->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $ciudades->nombre, $ciudades->id, 'ciudades', auth()->user()->id);
             session()->flash('message', 'Ciudad eliminada!');
             return redirect()->route('ciudades.index');
         }

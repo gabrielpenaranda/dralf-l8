@@ -8,7 +8,7 @@ class PruebaAnticoagulante extends Model
 {
     protected $table = 'pruebaanticoagulantes';
 
-    protected $fillable = ['ph', 'tubo', 'lotes_id'];
+    protected $fillable = ['ph', 'tubo', 'lotes_id', 'numero'];
 
     public $timestamps = false;
 

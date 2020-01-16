@@ -61,12 +61,7 @@ class ProductoController extends Controller
         $productos->costo = 0;
         $productos->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$productos->nombre;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'productos';
-        $bitacoras->tabla_id = $productos->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $productos->numero, $productos->id, 'productos', auth()->user()->id);
         session()->flash('message', 'Producto creado con éxito!');
         return redirect()->route('productos.index');
     }
@@ -117,13 +112,8 @@ class ProductoController extends Controller
         $productos->precio = (float)$request->get('preciodolar') * (float)$divisas->cambio;
         $productos->impuesto = $request->get('impuesto');
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$productos->nombre;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'productos';
-        $bitacoras->tabla_id = $productos->id;
-        $bitacoras->user_id = auth()->user()->id;
+        $bitacoras->register($bitacoras, 'U', $productos->numero, $productos->id, 'productos', auth()->user()->id);
         $productos->update();
-        $bitacoras->save();
         session()->flash('message', 'Producto actualizado!');
         return redirect()->route('productos.index');
     }
@@ -139,12 +129,7 @@ class ProductoController extends Controller
         try {
             $productos->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$productos->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'productos';
-            $bitacoras->tabla_id = $productos->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $productos->numero, $productos->id, 'productos', auth()->user()->id);
             session()->flash('message', 'Producto eliminado!');
             return redirect()->route('productos.index');
         }

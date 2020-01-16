@@ -82,7 +82,12 @@
                                             title="Eliminar">Eliminar</button>
                                     </div>
                                 </form>
-
+                                @else
+                                    <div class="buttons has-addons is-centered">
+                                        <a class="button is-primary is-small is-outlined confirmation"
+                                            href="{{ route('lotes.print', ['lotes' => $l->id]) }}"
+                                            title="Certificar">Ver Certificado</a>
+                                    </div>
                                 @endif
                                 @endif
                             </td>

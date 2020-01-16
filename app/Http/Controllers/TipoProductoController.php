@@ -45,12 +45,7 @@ class TipoProductoController extends Controller
         $tipoproductos->nombre = strtoupper($request->get('nombre'));
         $tipoproductos->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$tipoproductos->nombre;
-        $bitacoras->accion = "C";
-        $bitacoras->tabla = 'tipoproductos';
-        $bitacoras->tabla_id = $tipoproductos->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $tipoproductos->nombre, $tipoproductos->id, 'tipoproductos', auth()->user()->id);
         session()->flash('message', 'Tipo Producto creado con éxito!');
         return redirect()->route('tipoproductos.index');
     }
@@ -90,12 +85,7 @@ class TipoProductoController extends Controller
         $tipoproductos->nombre = strtoupper($request->get('nombre'));
         $tipoproductos->update();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$tipoproductos->nombre;
-        $bitacoras->accion = 'U';
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->tabla = 'tipoproductos';
-        $bitacoras->tabla_id = $tipoproductos->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'U', $tipoproductos->nombre, $tipoproductos->id, 'tipoproductos', auth()->user()->id);
         session()->flash('message', 'TipoProducto actualizado!');
         return redirect()->route('tipoproductos.index');
     }
@@ -111,12 +101,7 @@ class TipoProductoController extends Controller
         try {
             $tipoproductos->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$tipoproductos->nombre;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'tipoproductos';
-            $bitacoras->tabla_id = $tipoproductos->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $tipoproductos->nombre, $tipoproductos->id, 'tipoproductos', auth()->user()->id);
             session()->flash('message', 'Tipo Producto eliminado!');
             return redirect()->route('tipoproductos.index');
         }

@@ -55,12 +55,8 @@ class PersonaController extends Controller
         $personas->terceros_id = $request->get('terceros_id');
         $personas->save();
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Crear registro: ".$personas->nombre." ".$personas->apellido;
-        $bitacoras->accion = 'C';
-        $bitacoras->tabla = 'personas';
-        $bitacoras->tabla_id = $personas->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $persona = $personas->nombre.' '.$personas->apellido;
+        $bitacoras->register($bitacoras, 'C', $persona, $personas->id, 'personas', auth()->user()->id);
         session()->flash('message', 'Persona creada con éxito!');
         return redirect()->route('personas.index');
     }
@@ -107,13 +103,9 @@ class PersonaController extends Controller
         $personas->tipopersonas_id = $request->get('tipopersonas_id');
         $personas->terceros_id = $request->get('terceros_id');
         $bitacoras = new Bitacora;
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$personas->nombre." ".$personas->apellido;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'personas';
-        $bitacoras->tabla_id = $personas->id;
-        $bitacoras->user_id = auth()->user()->id;
+        $persona = $personas->nombre.' '.$personas->apellido;
+        $bitacoras->register($bitacoras, 'U', $persona, $personas->id, 'personas', auth()->user()->id);
         $personas->update();
-        $bitacoras->save();
         session()->flash('message', 'Persona actualizada!');
         return redirect()->route('personas.index');
     }
@@ -129,12 +121,8 @@ class PersonaController extends Controller
         try {
             $personas->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$personas->nombre." ".$personas->apellido;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'personas';
-            $bitacoras->tabla_id = $personas->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $persona = $personas->nombre.' '.$personas->apellido;
+            $bitacoras->register($bitacoras, 'D', $persona, $personas->id, 'personas', auth()->user()->id);
             session()->flash('message', 'Persona eliminada!');
             return redirect()->route('personas.index');
         }

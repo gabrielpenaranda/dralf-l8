@@ -30,7 +30,7 @@ class PruebaDiluenteController extends Controller
     public function create()
     {
         $pruebadiluentes = new PruebaDiluente;
-        $lotes = Lote::where('prueba', 'DILUENTE')->orderBy('numero', 'desc')->get();
+        $lotes = Lote::where('prueba', 'DILUENTE')->where('certificado', false)->orderBy('numero', 'desc')->get();
         $titulo = "Crear Prueba Diluente";
         if (count($lotes) == 0)
         {
@@ -57,14 +57,12 @@ class PruebaDiluenteController extends Controller
         $pruebadiluentes->plt_4 = $request->get('plt_4');
         $pruebadiluentes->plt_5 = $request->get('plt_5');
         $pruebadiluentes->lotes_id = $request->get('lotes_id');
+        $pruebadiluentes->numero = '';
         $pruebadiluentes->save();
+        $pruebadiluentes->numero = $pruebadiluentes->lotes_id.'-'.$pruebadiluentes->id;
+        $pruebadiluentes->update();
         $bitacoras = new Bitacora;
-        $bitacoras->accion = 'C';
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebadiluentes->lotes->numero;
-        $bitacoras->tabla = 'pruebadiluentess';
-        $bitacoras->tabla_id = $pruebadiluentes->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras->register($bitacoras, 'C', $pruebadiluentes->numero, $pruebadiluentes->id, 'pruebadiluentes', auth()->user()->id);
         session()->flash('message', 'Prueba creada con éxito!');
         return redirect()->route('pruebadiluentes.index');
     }
@@ -102,7 +100,6 @@ class PruebaDiluenteController extends Controller
      */
     public function update(UpdatePruebaDiluenteRequest $request, PruebaDiluente $pruebadiluentes)
     {
-        $bitacoras = new Bitacora;
         $pruebadiluentes->ph = $request->get('ph');
         $pruebadiluentes->conductividad = $request->get('conductividad');
         $pruebadiluentes->plt_1 = $request->get('plt_1');
@@ -110,12 +107,8 @@ class PruebaDiluenteController extends Controller
         $pruebadiluentes->plt_3 = $request->get('plt_3');
         $pruebadiluentes->plt_4 = $request->get('plt_4');
         $pruebadiluentes->plt_5 = $request->get('plt_5');
-        $bitacoras->descripcion = "Actualizar/Modificar registro: ".$pruebadiluentes->lotes->numero;
-        $bitacoras->accion = 'U';
-        $bitacoras->tabla = 'pruebadiluentes';
-        $bitacoras->tabla_id = $pruebadiluentes->id;
-        $bitacoras->user_id = auth()->user()->id;
-        $bitacoras->save();
+        $bitacoras = new Bitacora;
+        $bitacoras->register($bitacoras, 'U', $pruebadiluentes->numero, $pruebadiluentes->id, 'pruebadiluentes', auth()->user()->id);
         $pruebadiluentes->update();
         session()->flash('message', 'Prueba actualizada!');
         return redirect()->route('pruebadiluentes.index');
@@ -132,12 +125,7 @@ class PruebaDiluenteController extends Controller
        try {
             $pruebadiluentes->delete();
             $bitacoras = new Bitacora;
-            $bitacoras->descripcion = "Eliminar registro: ".$pruebadiluentes->lotes->numero;
-            $bitacoras->accion = 'D';
-            $bitacoras->tabla = 'pruebadiluentes';
-            $bitacoras->tabla_id = $pruebadiluentes->id;
-            $bitacoras->user_id = auth()->user()->id;
-            $bitacoras->save();
+            $bitacoras->register($bitacoras, 'D', $pruebadiluentes->numero, $pruebadiluentes->id, 'pruebadiluentes', auth()->user()->id);
             session()->flash('message', 'Prueba eliminada!');
             return redirect()->route('pruebadiluentes.index');
         }

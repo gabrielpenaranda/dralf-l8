@@ -63,7 +63,7 @@
                     </div>
                     <div class="container">
                         <div class="columns is-mobile">
-                            <div class="column is-6 is-offset-2">
+                            <div class="column is-12 is-offset-2">
                                 {!! $ciudades->render() !!}
                             </div>
                         </div>
