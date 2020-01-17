@@ -123,6 +123,7 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::get('/freverse/{facturas}/{modulo}', 'FacturaController@freverse')->name('facturas.freverse');
     Route::get('/fproductodestroy/{terceros}/{facturas}/{detalle}/{modulo}', 'FacturaController@fproductodestroy')->name('facturas.fproductodestroy');
     Route::get('/fprint/{facturas}/{modulo}', 'FacturaController@fprint')->name('facturas.fprint');
+    
   });
 
   Route::prefix('formulas')->group(function()
@@ -252,6 +253,14 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::get('/edit/{pruebarinses}', 'PruebaRinseController@edit')->name('pruebarinses.edit');
     Route::put('/update/{pruebarinses}', 'PruebaRinseController@update')->name('pruebarinses.update');
     Route::get('/show/{pruebarinses}', 'PruebaRinseController@show')->name('pruebarinses.show');
+  });
+
+  Route::prefix('reportes')->group(function()
+  {
+    Route::get('/reporteventas', 'ReporteController@reporteventas')->name('reportes.reporteventas');
+    Route::post('/reporteventas', 'ReporteController@generareporteventas')->name('reportes.generareporteventas');
+    Route::get('/reporteiva', 'ReporteController@reporteiva')->name('reportes.reporteiva');
+    Route::post('/reporteiva', 'ReporteController@generareporteiva')->name('reportes.generareporteiva');
   });
 
   Route::prefix('reportefacturas')->group(function()

@@ -12,6 +12,7 @@ use App\Tercero;
 use App\Producto;
 use App\Lote;
 use App\Correlativo;
+use App\Bitacora;
 use Fpdf;
 
 class FacturaController extends Controller
@@ -487,6 +488,7 @@ class FacturaController extends Controller
 
   }
 
+  
   //*********************************************************************************************
 
 

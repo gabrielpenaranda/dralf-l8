@@ -202,6 +202,13 @@
           <a class="navbar-item" href="{{ route('facturas.index', ['modulo' => 'notaentrega']) }}">
             Notas de Entrega
           </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item" href="{{ route('reportes.reporteventas') }}">
+            Reporte de Ventas
+          </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteiva') }}">
+            Reporte de IVA
+          </a>
         </div>
       </div>
 
