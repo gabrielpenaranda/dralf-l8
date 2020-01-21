@@ -20,7 +20,7 @@ Auth::routes();
 Route::middleware('auth')->prefix('dralf')->group(function()
 {
   Route::resource('usuarios', 'UsuarioController');
-  
+
   Route::resource('roles', 'RolController');
 
   Route::get('/', 'AdminController@index')->name('admin.index');
@@ -123,7 +123,7 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::get('/freverse/{facturas}/{modulo}', 'FacturaController@freverse')->name('facturas.freverse');
     Route::get('/fproductodestroy/{terceros}/{facturas}/{detalle}/{modulo}', 'FacturaController@fproductodestroy')->name('facturas.fproductodestroy');
     Route::get('/fprint/{facturas}/{modulo}', 'FacturaController@fprint')->name('facturas.fprint');
-    
+
   });
 
   Route::prefix('formulas')->group(function()
@@ -210,7 +210,7 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::put('/update/{pruebas}', 'PruebaController@update')->name('pruebas.update');
     Route::get('/show/{pruebas}', 'PruebaController@show')->name('pruebas.show');
   });
-  
+
   Route::prefix('pruebaanticoagulantes')->group(function()
   {
     Route::get('/', 'PruebaAnticoagulanteController@index')->name('pruebaanticoagulantes.index');
@@ -259,6 +259,10 @@ Route::middleware('auth')->prefix('dralf')->group(function()
   {
     Route::get('/reporteventas', 'ReporteController@reporteventas')->name('reportes.reporteventas');
     Route::post('/reporteventas', 'ReporteController@generareporteventas')->name('reportes.generareporteventas');
+    Route::get('/reporteventasxproducto', 'ReporteController@reporteventasxproducto')->name('reportes.reporteventasxproducto');
+    Route::post('/reporteventasxproducto', 'ReporteController@generareporteventasxproducto')->name('reportes.generareporteventasxproducto');
+    Route::get('/reporteventasxproductog', 'ReporteController@reporteventasxproductog')->name('reportes.reporteventasxproductog');
+    Route::post('/reporteventasxproductog', 'ReporteController@generareporteventasxproductog')->name('reportes.generareporteventasxproductog');
     Route::get('/reporteiva', 'ReporteController@reporteiva')->name('reportes.reporteiva');
     Route::post('/reporteiva', 'ReporteController@generareporteiva')->name('reportes.generareporteiva');
   });

@@ -40,7 +40,7 @@ class CreateLoteRequest extends FormRequest
             'fecha_vencimiento' => "required|date_format:d-m-Y",
             'cantidad_producida' => "required|numeric",
             'cantidad_prueba' => ["required", "numeric", new Menor($cprol)],
-            'numero' => "required|unique:lotes,numero|min:9|max:20",
+            'numero' => "required|unique:lotes,numero|min:3|max:20",
             ];
     }
 

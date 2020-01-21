@@ -119,7 +119,7 @@
             Ciudad
           </a>
           @endcan
-          @can('estados.index')          
+          @can('estados.index')
           <a class="navbar-item" href="{{ route('estados.index') }}">
             Estado
           </a>
@@ -127,7 +127,7 @@
            <hr class="navbar-divider">
            <a class="navbar-item" href="{{ route('divisas.edit', ['divisas' => 1]) }}">
             Divisa (Actualización Precios)
-          </a>   
+          </a>
         </div>
       </div>
 
@@ -204,7 +204,13 @@
           </a>
           <hr class="navbar-divider">
           <a class="navbar-item" href="{{ route('reportes.reporteventas') }}">
-            Reporte de Ventas
+            Reporte de Ventas General
+          </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteventasxproducto') }}">
+            Reporte de Ventas x Producto
+          </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteventasxproductog') }}">
+            Reporte de Ventas x Producto (General)
           </a>
           <a class="navbar-item" href="{{ route('reportes.reporteiva') }}">
             Reporte de IVA

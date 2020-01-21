@@ -40,15 +40,11 @@
                     <label for="productos_id" class="is-size-7 has-text-weight-bold">Producto: </label>
                     <select name="productos_id" class="is-size-7">
                         @foreach ($productos as $p)
-                            @if ($lotes->productos_id == $p->id)
-                                <option value="{{ $p->id }}" selected>
-                                @else
-                                    <option value="{{ $p->id }}">
-                                @endif
-                                    {{ $p->nombre }}
-                                </option>
-                            @endforeach
-                        </select>
+                            <option value="{{ $p->id }}">
+                                {{ $p->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
         </div>
