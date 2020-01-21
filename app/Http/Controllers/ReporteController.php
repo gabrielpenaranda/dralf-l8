@@ -127,9 +127,6 @@ class ReporteController extends Controller
  {
    $fecha_desde = date("Y-m-d", strtotime($request->get('fecha_desde')));
    $fecha_hasta = date("Y-m-d", strtotime($request->get('fecha_hasta')));
-   echo $fecha_desde.'<br>';
-   echo $fecha_hasta;
-   exit;
    $productos = Producto::all();
    $aproducto = array();
    foreach($productos as $p) {
@@ -166,15 +163,18 @@ class ReporteController extends Controller
    }
    else
    {
-      $facturas = Factura::where('fecha', '>=', $fecha_desde)->where('fecha', '<=', $fecha_hasta)->orderBy('fecha', 'asc')->get();
+      $facturas = Factura::where('fecha', '>=', $fecha_desde)->where('fecha', '<=', $fecha_hasta)->get();
       // dd($facturas);
-      foreach($facturas as $f){
+      foreach($facturas as $f) {
+        echo $f->id;
         $detallefacturas = DetalleFactura::where('facturas_id', $f->id)->get();
         foreach($detallefacturas as $df) {
-          $productos = Producto::all();
+          // $productos = Producto::all();
           foreach($productos as $p) {
             if ($df->lotes->productos->id == $p->id) {
               $aproducto[$p->id] += $df->cantidad;
+              echo 'factura '.$f->numero.' cantidad '.$df->cantidad.' acum '.$aproducto[$p->id];
+              // sleep(10);
             }
           }
        }
