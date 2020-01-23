@@ -203,17 +203,24 @@
             Notas de Entrega
           </a>
           <hr class="navbar-divider">
+          <span class="navbar-item is-size-5 has-text-weight-bold">Reportes</span>
           <a class="navbar-item" href="{{ route('reportes.reporteventas') }}">
-            Reporte de Ventas General
+            Ventas General
           </a>
           <a class="navbar-item" href="{{ route('reportes.reporteventasxproducto') }}">
-            Reporte de Ventas x Producto
+            Ventas x Producto
           </a>
           <a class="navbar-item" href="{{ route('reportes.reporteventasxproductog') }}">
-            Reporte de Ventas x Producto (General)
+            Ventas x Producto (General)
           </a>
           <a class="navbar-item" href="{{ route('reportes.reporteiva') }}">
-            Reporte de IVA
+            IVA Cobrado
+          </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteventasxtercero') }}">
+            Ventas x Tercero
+          </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteventasxtercerog') }}">
+            Ventas x Tercero (General)
           </a>
         </div>
       </div>
