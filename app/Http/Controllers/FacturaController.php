@@ -199,6 +199,7 @@ class FacturaController extends Controller
       }
       $detallefacturas->resto = $request->get('cantidad');
       $detallefacturas->facturas_id = $facturas->id;
+      $detallefacturas->preciousd = $lote->productos->preciodolar;
       $detallefacturas->lotes_id = $request->get('lotes_id');
       $detallefacturas->costo = $lote->productos->costo;
       $detallefacturas->save();
@@ -314,7 +315,8 @@ class FacturaController extends Controller
     $nombre = '';
     if ($modulo == "notaentrega") {
       $nombre = public_path().'/nota_entrega_'.$facturas->numero.'.pdf';
-      Fpdf::AddPage('P', 'Letter');
+      // Fpdf::AddPage('P', 'Letter');
+      Fpdf::AddPage('L', array(139,215));
       Fpdf::SetFont('Arial', 'B', 14);
       Fpdf::SetAutoPageBreak(true, 10);
       Fpdf::SetTopMargin(10);
@@ -349,11 +351,11 @@ class FacturaController extends Controller
       Fpdf::Line(10,65,205,65);
       Fpdf::SetFont('Arial', '', 8);
       Fpdf::SetXY(10,66);
-      Fpdf::Cell(15,4, 'CODIGO');
+      Fpdf::Cell(15,4, 'LOTE');
       Fpdf::SetXY(35,66);
       Fpdf::Cell(20,4, 'PRODUCTO');
-      Fpdf::SetXY(80,66);
-      Fpdf::Cell(10,4, 'LOTE');
+      // Fpdf::SetXY(80,66);
+      // Fpdf::Cell(10,4, 'LOTE');
       Fpdf::SetXY(100,66);
       Fpdf::Cell(14,4, 'CANTIDAD');
       Fpdf::SetXY(118,66);
@@ -368,11 +370,11 @@ class FacturaController extends Controller
       foreach($detallefacturas as $d)
       {
         Fpdf::SetXY(10,$l);
-        Fpdf::Cell(15,4, $d->lotes->productos->codigo);
+        Fpdf::Cell(15,4, $d->lotes->numero);
         Fpdf::SetXY(35,$l);
-        Fpdf::Cell(20,4, $d->lotes->productos->nombre);
-        Fpdf::SetXY(80,$l);
-        Fpdf::Cell(10,4, $d->lotes->numero);
+        Fpdf::Cell(20,4, $d->lotes->productos->codigo.' '.$d->lotes->productos->nombre);
+        // Fpdf::SetXY(80,$l);
+        // Fpdf::Cell(10,4, $d->lotes->numero);
         Fpdf::SetXY(100,$l);
         Fpdf::Cell(14,4, $d->cantidad,0,0,'C');
         Fpdf::SetXY(118,$l);
@@ -385,11 +387,14 @@ class FacturaController extends Controller
         Fpdf::Cell(30,4, number_format($total, 2, ',', '.'),0,0,'R');
         $l += 4;
       }
-      Fpdf::Line(10,250,205,250);
+      // Fpdf::Line(10,250,205,250);
+      Fpdf::Line(10,120,205,120);
       Fpdf::SetFont('Arial', 'B', 10);
-      Fpdf::SetXY(100,251);
+      // Fpdf::SetXY(100,251);
+      Fpdf::SetXY(100,121);
       Fpdf::Cell(50,5, 'TOTAL NOTA DE ENTREGA ');
-      Fpdf::SetXY(160,251);
+      // Fpdf::SetXY(160,251);
+      Fpdf::SetXY(160,121);
       Fpdf::Cell(45,5, number_format($acumulador, 2, ',', '.'),0,0,'R');
     }
     else
@@ -427,8 +432,8 @@ class FacturaController extends Controller
       Fpdf::Line(55,59,215,59);
       Fpdf::SetFont('Arial', '', 8);
       Fpdf::SetXY(55,60);
-      Fpdf::Cell(15,4, 'CODIGO');
-      Fpdf::SetXY(70,60);
+      Fpdf::Cell(15,4, 'LOTE');
+      Fpdf::SetXY(75,60);
       Fpdf::Cell(20,4, 'PRODUCTO');
       Fpdf::SetXY(110,60);
       Fpdf::Cell(14,4, 'CANTIDAD');
@@ -444,9 +449,9 @@ class FacturaController extends Controller
       foreach($detallefacturas as $d)
       {
         Fpdf::SetXY(55,$l);
-        Fpdf::Cell(15,4, $d->lotes->productos->codigo);
-        Fpdf::SetXY(70,$l);
-        Fpdf::Cell(20,4, $d->lotes->productos->nombre);
+        Fpdf::Cell(15,4, $d->lotes->numero);
+        Fpdf::SetXY(75,$l);
+        Fpdf::Cell(20,4, $d->lotes->productos->codigo.' '.$d->lotes->productos->nombre);
         Fpdf::SetXY(110,$l);
         Fpdf::Cell(14,4, $d->cantidad,0,0,'C');
         Fpdf::SetXY(128,$l);

@@ -222,6 +222,12 @@
           <a class="navbar-item" href="{{ route('reportes.reporteventasxtercerog') }}">
             Ventas x Tercero (General)
           </a>
+          <a class="navbar-item" href="{{ route('reportes.reporteventasxtp') }}">
+            Ventas de Producto x Tercero
+          </a>
+          {{-- <a class="navbar-item" href="{{ route('reportes.reporteventasxtpg') }}">
+            Ventas de Producto x Tercero (General)
+          </a> --}}
         </div>
       </div>
 

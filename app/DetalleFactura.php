@@ -8,7 +8,7 @@ class DetalleFactura extends Model
 {
   protected $table = 'detallefacturas';
 
-  protected $fillable = ['cantidad', 'resto', 'precio', 'costo', 'facturas_id', 'lotes_id'];
+  protected $fillable = ['cantidad', 'resto', 'precio', 'costo', 'preciousd', 'facturas_id', 'lotes_id'];
 
   public $timestamps = false;
 

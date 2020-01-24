@@ -324,4 +324,65 @@ class ReporteController extends Controller
    return view('dralf.reportes.ventas._reporteventasxtercerog', ['titulo' => $titulo, 'terceros' => $terceros, 'factura' => $factura, 'desde' => $request->get('fecha_desde'), 'hasta' => $request->get('fecha_hasta')]);
  }
 }
+
+
+/**
+  * Display a listing of the resource.
+  *
+  * @return \Illuminate\Http\Response
+  */
+ public function reporteventasxtp()
+ {
+   $terceros = Tercero::all();
+   $titulo = "Ventas de Producto x Tercero";
+   return view('dralf.reportes.ventas.reporteventasxtp', ['titulo' => $titulo, 'terceros' => $terceros]);
+ }
+
+  /**
+  * Display a listing of the resource.
+  *
+  * @param  \Illuminate\Http\Request  $request
+  * @return \Illuminate\Http\Response
+  */
+ public function generareporteventasxtp(Request $request)
+ {
+   $fecha_desde = date("Y-m-d", strtotime($request->get('fecha_desde')));
+   $fecha_hasta = date("Y-m-d", strtotime($request->get('fecha_hasta')));
+   $terceros = Tercero::where('id', $request->get('tercero'))->first();
+   $productos = Producto::all();
+   $aproducto = array();
+   foreach($productos as $p) {
+     $aproducto[$p->id] = 0;
+     $amonto[$p->id] = 0;
+   }
+   if ($fecha_desde == $fecha_hasta) {
+      $facturas = Factura::where('terceros_id', $request->get('tercero'))->where('fecha', $fecha_desde)->orderBy('numero', 'asc')->get();
+      foreach($facturas as $f){
+        $detallefacturas = DetalleFactura::where('facturas_id', $f->id)->get();
+        foreach($detallefacturas as $df) {
+          $aproducto[$df->lotes->productos->id] += $df->cantidad;
+          $amonto[$df->lotes->productos->id] += ($df->cantidad * $df->precio);
+          }
+        }
+   }
+   else if ($fecha_desde > $fecha_hasta)
+   {
+       session()->flash('warning', 'Fecha de final no puede ser mayor a fecha inicio');
+       return redirect()->route('admin.index');
+   }
+   else
+   {
+      $facturas = Factura::where('terceros_id', $request->get('tercero'))->where('fecha', '>=', $fecha_desde)->where('fecha', '<=', $fecha_hasta)->orderBy('fecha', 'asc')->orderBy('numero', 'asc')->get();
+      foreach($facturas as $f){
+        $detallefacturas = DetalleFactura::where('facturas_id', $f->id)->get();
+        foreach($detallefacturas as $df) {
+          $aproducto[$df->lotes->productos->id] += $df->cantidad;
+          $amonto[$df->lotes->productos->id] += ($df->cantidad * $df->precio);
+          }
+        }
+   }
+   $titulo = "Ventas de Producto x Tercero";
+   return view('dralf.reportes.ventas._reporteventasxtp', ['titulo' => $titulo, 'terceros' => $terceros, 'productos' => $productos, 'aproducto' => $aproducto, 'amonto' => $amonto, 'desde' => $request->get('fecha_desde'), 'hasta' => $request->get('fecha_hasta')]);
+ }
+
 }

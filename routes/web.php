@@ -269,6 +269,10 @@ Route::middleware('auth')->prefix('dralf')->group(function()
     Route::post('/reporteventasxtercero', 'ReporteController@generareporteventasxtercero')->name('reportes.generareporteventasxtercero');
     Route::get('/reporteventasxtercerog', 'ReporteController@reporteventasxtercerog')->name('reportes.reporteventasxtercerog');
     Route::post('/reporteventasxtercerog', 'ReporteController@generareporteventasxtercerog')->name('reportes.generareporteventasxtercerog');
+    Route::get('/reporteventasxtp', 'ReporteController@reporteventasxtp')->name('reportes.reporteventasxtp');
+    Route::post('/reporteventasxtp', 'ReporteController@generareporteventasxtp')->name('reportes.generareporteventasxtp');
+    Route::get('/reporteventasxtpg', 'ReporteController@reporteventasxtpg')->name('reportes.reporteventasxtpg');
+    Route::post('/reporteventasxtpg', 'ReporteController@generareporteventasxtpg')->name('reportes.generareporteventasxtpg');
   });
 
   Route::prefix('reportefacturas')->group(function()
