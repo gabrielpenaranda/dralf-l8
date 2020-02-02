@@ -158,6 +158,10 @@
           <a class="navbar-item" href="{{ route('materiaprimas.index') }}">
             Materia Prima
           </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item" href="{{ route('entregas.menu') }}">
+            Entregas
+          </a>
         </div>
       </div>
 

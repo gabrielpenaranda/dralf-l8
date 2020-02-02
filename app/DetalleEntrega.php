@@ -8,7 +8,7 @@ class DetalleEntrega extends Model
 {
   protected $table = 'detalleentregas';
 
-  protected $fillable = ['cantidad_detalle', 'entregas_id', 'detallefacturas_id'];
+  protected $fillable = ['cantidad', 'entregas_id', 'detallefacturas_id'];
 
   public $timestamps = false;
 

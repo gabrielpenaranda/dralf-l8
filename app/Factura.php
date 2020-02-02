@@ -8,7 +8,7 @@ class Factura extends Model
 {
   protected $table = 'facturas';
 
-  protected $fillable = ['numero', 'fecha', 'monto', 'saldo', 'iva', 'documento', 'terceros_id'];
+  protected $fillable = ['numero', 'fecha', 'monto', 'saldo', 'iva', 'documento', 'entregado', 'terceros_id'];
 
   public $timestamps = false;
 

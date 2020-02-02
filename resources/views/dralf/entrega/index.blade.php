@@ -39,19 +39,19 @@
                                         {{ $f->numero_factura }}
                                     </td>
                                     <td class="text-left">
-                                        {{ $f->cliente->nombre_cliente }}
+                                        {{ $f->tercero->nombre }}
                                     </td>
                                     <td class="text-left">
-                                        {{ date("d-m-Y", strtotime($f->fecha_factura)) }}
+                                        {{ date("d-m-Y", strtotime($f->fecha)) }}
                                     </td>
                                     <td class="text-left">
-                                        {{ number_format($f->monto_factura, 2, ',', '.') }}
+                                        {{ number_format($f->monto, 2, ',', '.') }}
                                     </td>
                                     <td class="text-left">
-                                        {{ number_format($f->iva_factura, 2, ',', '.') }}
+                                        {{ number_format($f->iva, 2, ',', '.') }}
                                     </td>
                                     @php
-                                    $total = $f->monto_factura + $f->iva_factura;
+                                    $total = $f->monto + $f->iva;
                                     @endphp
                                     <td class="text-left">
                                         {{ number_format($total, 2, ',', '.') }}
