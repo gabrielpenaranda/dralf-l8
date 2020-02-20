@@ -32,20 +32,16 @@
             <div class="column is-3 is-offset-3">
                 <div class="field">
                     <div class="control">
-                        <label for="fecha_desde"
-                            class="is-size-7 has-text-weight-bold">Desde:</label>
-                        <input type="text" name="fecha_desde" id="datepicker"
-                            class="input is-small" />
+                        <label for="fecha_desde" class="is-size-7 has-text-weight-bold">Desde:</label>
+                        <input type="text" name="fecha_desde" id="datepicker" class="input is-small" />
                     </div>
                 </div>
             </div>
             <div class="column is-3">
                 <div class="field">
                     <div class="control">
-                        <label for="fecha_hasta"
-                            class="is-size-7 has-text-weight-bold">Hasta:</label>
-                        <input type="text" name="fecha_hasta" id="datepicker1"
-                            class="input is-small" />
+                        <label for="fecha_hasta" class="is-size-7 has-text-weight-bold">Hasta:</label>
+                        <input type="text" name="fecha_hasta" id="datepicker1" class="input is-small" />
                     </div>
                 </div>
             </div>
@@ -68,7 +64,7 @@
 @parent
 <script type="text/javascript" src="{{ asset('js/jquery-ui.min.js') }}"></script>
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $("#datepicker").datepicker({
             //minDate: -5,
             maxDate: "+0D",
@@ -78,9 +74,9 @@
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre",
                 "Deciembre"
             ],
-            beforeShow: function (input, inst) {
+            beforeShow: function(input, inst) {
                 var rect = input.getBoundingClientRect();
-                setTimeout(function () {
+                setTimeout(function() {
                     inst.dpDiv.css({
                         top: rect.top + 40,
                         left: rect.left + 0
@@ -89,10 +85,9 @@
             }
         });
     });
-
 </script>
 <script type="text/javascript">
-    $(function () {
+    $(function() {
         $("#datepicker1").datepicker({
             //minDate: +0,
             maxDate: "+0D",
@@ -102,9 +97,9 @@
                 "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre",
                 "Deciembre"
             ],
-            beforeShow: function (input, inst) {
+            beforeShow: function(input, inst) {
                 var rect = input.getBoundingClientRect();
-                setTimeout(function () {
+                setTimeout(function() {
                     inst.dpDiv.css({
                         top: rect.top + 40,
                         left: rect.left + 0
@@ -113,6 +108,5 @@
             }
         });
     });
-
 </script>
 @endsection
