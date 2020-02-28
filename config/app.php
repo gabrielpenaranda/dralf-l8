@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Caracas',
 
     /*
     |--------------------------------------------------------------------------
@@ -80,7 +80,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'es',
 
     /*
     |--------------------------------------------------------------------------
@@ -180,7 +180,7 @@ return [
 
         // DomPDF
         Barryvdh\DomPDF\ServiceProvider::class,
-        
+
         // Fpdf
         Codedge\Fpdf\FpdfServiceProvider::class,
 

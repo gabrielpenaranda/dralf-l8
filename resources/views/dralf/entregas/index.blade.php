@@ -1,4 +1,4 @@
-{{-- ENTREGAS --}}
+{{-- facturas --}}
 
 @extends('dralf.layouts.base')
 
@@ -17,12 +17,18 @@
                     {{ 'Registro de Entregas' }}
                 </h4>
             </div>
-            <div class="column is-2">
-                <a class="button is-primary" href="{{ route('facturas.create') }}">
-                {{ 'Crear Entrega' }}
+            {{-- <div class="column is-2">
+                <span class="title is-6 has-text-centered">
+                    {{ 'Registro de facturas' }}
+                </span>
+                <a class="button is-link" href="{{ route('facturas.createtotal') }}">
+                {{ 'Total' }}
+                </a>
+                <a class="button is-info" href="{{ route('facturas.createparcial') }}">
+                {{ 'Parcial' }}
                 </a>
                 <br>
-            </div>
+            </div> --}}
         </div>
         <div class="columns is-mobile">
             <div class="column is-12">
@@ -32,32 +38,28 @@
                         <thead>
                             <th class="has-text-left">Número</th>
                             <th class="has-text-left">Documento</th>
-                            <th class="has-text-left">Cliente</th>
                             <th class="has-text-left">Fecha</th>
+                            <th class="has-text-left">Cliente</th>
                             <th class="has-text-centered">Acciones</th>
                         </thead>
                         <tbody>
                             @foreach ($facturas as $f)
                                 <tr>
-                                <td class="is-size-7 has-text-left">
+                                    <td class="is-size-7 has-text-left">
                                         {{ $f->numero }}
                                     </td>
                                     <td class="is-size-7 has-text-left">
+                                        @if ($f->documento == "factura")
+                                            {{ "Factura" }}
+                                        @else
+                                            {{ "Nota de Entrega" }}
+                                        @endif
+                                    </td>
+                                    <td class="is-size-7 has-text-left">
+                                        {{ date("d-m-Y", strtotime($f->fecha)) }}
+                                    </td>
+                                    <td class="is-size-7 has-text-left">
                                         {{ $f->terceros->nombre }}
-                                    </td>
-                                    <td class="is-size-7 has-text-left">
-                                        {{ date("d-m-Y", strtotime($f->fecha)) }}f                                    </td>
-                                    <td class="is-size-7 has-text-left">
-                                        {{ number_format($f->monto, 2, ',', '.') }}
-                                    </td>
-                                    <td class="is-size-7 has-text-left">
-                                        {{ number_format($f->iva, 2, ',', '.') }}
-                                    </td>
-                                    @php
-                                    $total = $f->monto + $f->iva;
-                                    @endphp
-                                    <td class="is-size-7 has-text-left">
-                                        {{ number_format($total, 2, ',', '.') }}
                                     </td>
                                     <td>
                                         @if (Auth::check())
@@ -69,8 +71,15 @@
 
 
                                                 {{-- <a class="button is-primary is-small is-outlined" href="{{ route('detailfacturas.index', ['facturas' => $f->id, 'modulo' => $modulo]) }}" title="Agregar productos"><span class="glyphicon glyphicon-plus" aria-hidden="true">Agregar Productos</span></a> --}}
-
-                                                <a class="button is-primary is-small is-outlined" href="{{ route('facturas.show', ['facturas' => $f->id, 'modulo' => $modulo]) }}" title="Ver factura">Ver</a>
+                                                @if ($f->entregado == 'N')
+                                                <a class="button is-danger is-outlined is-small" href="{{ route('entregas.total', ['facturas' => $f->id, 'modulo' => $f->documento]) }}" title="Entrega total">Total</a>
+                                                @endif
+                                                @if ($f->entregado == 'P' || $f->entregado == 'N')
+                                                <a class="button is-link is-outlined is-small" href="{{ route('entregas.parcial', ['facturas' => $f->id, 'modulo' => $f->documento]) }}" title="Entrega parcial">Parcial</a>
+                                                @endif
+                                                @if ($f->entregado == 'E'  || $f->entregado == 'P')
+                                                <a class="button is-success is-small is-primary is-outlined" href="{{ route('entregas.show', ['facturas' => $f->id, 'modulo' => $f->documento]) }}" title="Ver entregas">Ver</a>
+                                                @endif
 
                                                 {{-- <a class="btn btn-primary btn-sm" href="{{ route('facturas.create', ['facturas' => $f->id, 'modulo' => $modulo]) }}" title="Agregar entrega"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
 

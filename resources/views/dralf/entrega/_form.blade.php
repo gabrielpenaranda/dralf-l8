@@ -1,20 +1,17 @@
-{{-- ENTREGA --}}
+{{-- entregas --}}
 
 <div class="container">
-{{-- @php
-dd($modulo)
-@endphp --}}
-<div class="row">
-  <div class="col-xs-7 col-md-offset-2 col-md-6">
-    @if ($entrega->exists)
-    <h4>Edición de Entrega</h4>
-    <form action="{{ route('entregas.update', ['entrega' => $entrega->id]) }}" method="POST">
+<div class="columns is-mobile">
+  <div class="column is-7 is-offset-2">
+    @if ($entregas->exists)
+    <h4>Edición de Entregas</h4>
+    <form action="{{ route('entregas.update', ['entregas' => $entregas->id]) }}" method="POST">
       {{ method_field('PUT') }}
       @else
       @if ($modulo == 'factura')
-      <h4>Nueva Entrega a Factura Nº {{ $factura->numero_factura }}</h4>
+      <h4>Nueva entrega a Factura Nº {{ $facturas->numero }}</h4>
       @else
-      <h4>Nueva Entrega a Nota de Entrega Nº {{ $factura->numero_factura }}</h4>
+      <h4>Nueva entrega a Nota de entregas Nº {{ $facturas->numero }}</h4>
       @endif
       <form action="{{ route('entregas.store', ['modulo' => $modulo]) }}" method="POST">
         @endif
@@ -25,7 +22,7 @@ dd($modulo)
         @if ($modulo == 'factura')
         <a class="btn btn-danger" href="{{ route('facturas.index', ['modulo' => $modulo]) }}">Regresar</a>
         @else
-        <a class="btn btn-danger" href="{{ route('notaentrega.index', ['modulo' => $modulo]) }}">Regresar</a>
+        <a class="btn btn-danger" href="{{ route('notaentregas.index', ['modulo' => $modulo]) }}">Regresar</a>
         @endif
       </div>
     </div>
@@ -33,32 +30,32 @@ dd($modulo)
     <div class="row">
       <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
         <div class="form-group">
-          <label for="numero_entrega">Número Entrega:</label>
-          <input type="text" name="numero_entrega" class="form-control" value="{{ $entrega->numero_entrega or old('numero_entrega')}}" />
+          <label for="numero_entregas">Número entregas:</label>
+          <input type="text" name="numero_entregas" class="form-control" value="{{ $entregas->numero_entregas or old('numero_entregas')}}" />
         </div>
       </div>
     </div>
 
     <div class="row">
       <div class="col-xs-6 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8">
-        @if ($entrega->exists)
+        @if ($entregas->exists)
         @php
-        $fecha = date("d-m-Y",strtotime($entrega->fecha_entrega));
+        $fecha = date("d-m-Y",strtotime($entregas->fecha_entregas));
         @endphp
         @else
         @php
-        $fecha = $entrega->fecha_entrega;
+        $fecha = $entregas->fecha_entregas;
         @endphp
         @endif
         <div class="form-group">
-          <label for="fecha_entrega">Fecha :</label>
-          <input type="text" name="fecha_entrega" id="datepicker" class="form-control" value="{{ $fecha or old('fecha_entrega')}}" />
+          <label for="fecha_entregas">Fecha :</label>
+          <input type="text" name="fecha_entregas" id="datepicker" class="form-control" value="{{ $fecha or old('fecha_entregas')}}" />
         </div>
       </div>
     </div>
 
-    <input type="hidden" name="factura_id" value="{{ $factura->id }}">
-    <input type="hidden" name="ffactura" value="{{ $factura->fecha_factura }}">
+    <input type="hidden" name="factura_id" value="{{ $facturas->id }}">
+    <input type="hidden" name="ffactura" value="{{ $facturas->fecha }}">
 
     <br>
     <div class="row">

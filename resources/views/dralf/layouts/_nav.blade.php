@@ -159,7 +159,7 @@
             Materia Prima
           </a>
           <hr class="navbar-divider">
-          <a class="navbar-item" href="{{ route('entregas.menu') }}">
+          <a class="navbar-item" href="{{ route('entregas.index') }}">
             Entregas
           </a>
         </div>

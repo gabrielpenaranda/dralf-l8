@@ -11,7 +11,7 @@
 @include('dralf.layouts._nav')
 
 @section('content')
-@include('dralf.entrega._form', ['factura' => $factura, 'entrega' => $entrega, 'modulo' => $modulo])
+@include('dralf.entrega._form', ['facturas' => $facturas, 'entregas' => $entregas, 'modulo' => $modulo])
 @endsection
 
 @section('javascripts')

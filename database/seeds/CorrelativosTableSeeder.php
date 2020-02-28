@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Correlativo;
+use Illuminate\Database\Seeder;
 
 class CorrelativosTableSeeder extends Seeder
 {
@@ -19,5 +19,6 @@ class CorrelativosTableSeeder extends Seeder
         Correlativo::create(['documento' => 'PAGO', 'correlativo' => 0]);
         Correlativo::create(['documento' => 'COBRO', 'correlativo' => 0]);
         Correlativo::create(['documento' => 'NOTARECEPCION', 'correlativo' => 0]);
+        Correlativo::create(['documento' => 'ENTREGA', 'correlativo' => 0]);
     }
 }

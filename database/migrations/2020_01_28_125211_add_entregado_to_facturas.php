@@ -14,7 +14,7 @@ class AddEntregadoToFacturas extends Migration
     public function up()
     {
         Schema::table('facturas', function (Blueprint $table) {
-            $table->boolean('entregado')->default(false);
+            $table->char('entregado')->default('N');
         });
     }
 

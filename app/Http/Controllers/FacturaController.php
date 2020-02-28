@@ -500,93 +500,99 @@ class FacturaController extends Controller
      */
     public function show(Factura $facturas, $modulo)
     {
-      //
-      // FACTURA
-      //
-      $nombre = public_path().'/factura_'.$facturas->numero.'.pdf';
-      Fpdf::AddPage('L', array(233,160));
-      Fpdf::SetFont('Arial', 'B', 8);
-      Fpdf::SetAutoPageBreak(true, 10);
-      Fpdf::SetFont('Arial', 'B', 8);
-      Fpdf::SetXY(167,25);
-      Fpdf::Cell(50, 4, utf8_decode('FACTURA Nº  ').$facturas->numero);
-      Fpdf::SetXY(167,29);
-      Fpdf::Cell(50, 4, 'FECHA  '.date('d/m/Y', strtotime($facturas->fecha)));
-      Fpdf::SetXY(40,33);
-      Fpdf::Cell(25, 4, 'CLIENTE: ');
-      Fpdf::SetFont('Arial', '', 8);
-      Fpdf::SetXY(65,33);
-      Fpdf::Multicell(165, 4, $facturas->terceros->razon_social);
-      Fpdf::SetFont('Arial', 'B', 8);
-      Fpdf::SetXY(40,37);
-      Fpdf::Cell(25, 4, 'RIF: ');
-      Fpdf::SetFont('Arial', '', 8);
-      Fpdf::SetXY(65,37);
-      Fpdf::Cell(80, 4, $facturas->terceros->rif);
-      Fpdf::SetFont('Arial', 'B', 8);
-      Fpdf::SetXY(40,41);
-      Fpdf::Cell(25, 4, 'DIRECCION: ');
-      Fpdf::SetFont('Arial', '', 8);
-      Fpdf::SetXY(65,41);
-      Fpdf::Multicell(165, 4, $facturas->terceros->direccion.', '.$facturas->terceros->ciudades->nombre.', '.$facturas->terceros->ciudades->estados->nombre);
-      Fpdf::Ln();
-      Fpdf::Line(40,49,215,49);
-      Fpdf::SetFont('Arial', '', 8);
-      Fpdf::SetXY(40,49);
-      Fpdf::Cell(15,4, 'LOTE');
-      Fpdf::SetXY(65,49);
-      Fpdf::Cell(20,4, 'PRODUCTO');
-      Fpdf::SetXY(110,49);
-      Fpdf::Cell(14,4, 'CANTIDAD');
-      Fpdf::SetXY(128,49);
-      Fpdf::Cell(14,4, 'UNIDAD');
-      Fpdf::SetXY(160,49);
-      Fpdf::Cell(15,4, 'PRECIO');
-      Fpdf::SetXY(200,49);
-      Fpdf::Cell(15,4, 'TOTAL');
-      Fpdf::Line(40,53,215,53);
-      $l = 53;
-      $acumulador = 0;
-      foreach($detallefacturas as $d)
-      {
-        Fpdf::SetXY(40,$l);
-        Fpdf::Cell(15,4, $d->lotes->numero);
-        Fpdf::SetXY(65,$l);
-        Fpdf::Cell(20,4, $d->lotes->productos->codigo.' '.$d->lotes->productos->nombre);
-        Fpdf::SetXY(110,$l);
-        Fpdf::Cell(14,4, $d->cantidad,0,0,'C');
-        Fpdf::SetXY(128,$l);
-        Fpdf::Cell(14,4, $d->lotes->productos->unidadmedidas->abreviatura,0,0,'C');
-        Fpdf::SetXY(150,$l);
-        Fpdf::Cell(30,4, number_format($d->precio, 2, ',', '.'),0,0,'R');
-        $total = $d->cantidad * $d->precio;
-        $acumulador += $total;
-        Fpdf::SetXY(185,$l);
-        Fpdf::Cell(30,4, number_format($total, 2, ',', '.'),0,0,'R');
-        $l += 4;
-      }
-      Fpdf::Line(40,100,215,100);
-      Fpdf::SetFont('Arial', 'B', 8);
-      Fpdf::SetXY(40,100);
-      Fpdf::Cell(80,5, utf8_decode('REALIZAR LOS PAGOS A NOMBRE DE ALFONSO PEÑARANDA C.I. 10.190.738'));
-      Fpdf::SetXY(160,100);
-      Fpdf::Cell(30,5, 'BASE IMPONIBLE ');
-      Fpdf::SetXY(185,100);
-      Fpdf::Cell(30,4, number_format($acumulador, 2, ',', '.'),0,0,'R');
-      Fpdf::SetXY(40,104);
-      Fpdf::Cell(80,5, 'BANCO PROVINCIAL CTA. NRO. 01080501550200236231');
-      Fpdf::SetXY(160,104);
-      Fpdf::Cell(30,4, 'IVA 16% ');
-      Fpdf::SetXY(185,104);
-      Fpdf::Cell(30,4, number_format($acumulador * 0.16, 2, ',', '.'),0,0,'R');
-      Fpdf::SetXY(40,108);
-      Fpdf::Cell(80,5, 'BANCO MERCANTIL CTA. NRO. 01050749931749061406');
-      Fpdf::SetXY(160,108);
-      Fpdf::Cell(30,4, 'TOTAL NETO ');
-      Fpdf::SetXY(185,108);
-      Fpdf::Cell(30,4, number_format($acumulador+($acumulador*0.16), 2, ',', '.'),0,0,'R');
-   
->>>>>>> db77afd3241c838cc6e096fb920d37f265349125
+        if ($modulo == 'factura') {
+            $titulo = 'Ver Factura';
+        } else {
+            $titulo = 'Ver Nota de Entrega';
+        }
+        $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lotes_id', 'asc')->paginate(10);
+
+        return view('dralf.facturas.show')->with(['facturas' => $facturas, 'detallefacturas' => $detallefacturas, 'modulo' => $modulo, 'titulo' => $titulo]);
+
+        // //
+        // // FACTURA
+        // //
+        // $nombre = public_path().'/factura_'.$facturas->numero.'.pdf';
+        // Fpdf::AddPage('L', [233, 160]);
+        // Fpdf::SetFont('Arial', 'B', 8);
+        // Fpdf::SetAutoPageBreak(true, 10);
+        // Fpdf::SetFont('Arial', 'B', 8);
+        // Fpdf::SetXY(167, 25);
+        // Fpdf::Cell(50, 4, utf8_decode('FACTURA Nº  ').$facturas->numero);
+        // Fpdf::SetXY(167, 29);
+        // Fpdf::Cell(50, 4, 'FECHA  '.date('d/m/Y', strtotime($facturas->fecha)));
+        // Fpdf::SetXY(40, 33);
+        // Fpdf::Cell(25, 4, 'CLIENTE: ');
+        // Fpdf::SetFont('Arial', '', 8);
+        // Fpdf::SetXY(65, 33);
+        // Fpdf::Multicell(165, 4, $facturas->terceros->razon_social);
+        // Fpdf::SetFont('Arial', 'B', 8);
+        // Fpdf::SetXY(40, 37);
+        // Fpdf::Cell(25, 4, 'RIF: ');
+        // Fpdf::SetFont('Arial', '', 8);
+        // Fpdf::SetXY(65, 37);
+        // Fpdf::Cell(80, 4, $facturas->terceros->rif);
+        // Fpdf::SetFont('Arial', 'B', 8);
+        // Fpdf::SetXY(40, 41);
+        // Fpdf::Cell(25, 4, 'DIRECCION: ');
+        // Fpdf::SetFont('Arial', '', 8);
+        // Fpdf::SetXY(65, 41);
+        // Fpdf::Multicell(165, 4, $facturas->terceros->direccion.', '.$facturas->terceros->ciudades->nombre.', '.$facturas->terceros->ciudades->estados->nombre);
+        // Fpdf::Ln();
+        // Fpdf::Line(40, 49, 215, 49);
+        // Fpdf::SetFont('Arial', '', 8);
+        // Fpdf::SetXY(40, 49);
+        // Fpdf::Cell(15, 4, 'LOTE');
+        // Fpdf::SetXY(65, 49);
+        // Fpdf::Cell(20, 4, 'PRODUCTO');
+        // Fpdf::SetXY(110, 49);
+        // Fpdf::Cell(14, 4, 'CANTIDAD');
+        // Fpdf::SetXY(128, 49);
+        // Fpdf::Cell(14, 4, 'UNIDAD');
+        // Fpdf::SetXY(160, 49);
+        // Fpdf::Cell(15, 4, 'PRECIO');
+        // Fpdf::SetXY(200, 49);
+        // Fpdf::Cell(15, 4, 'TOTAL');
+        // Fpdf::Line(40, 53, 215, 53);
+        // $l = 53;
+        // $acumulador = 0;
+        // foreach ($detallefacturas as $d) {
+        //     Fpdf::SetXY(40, $l);
+        //     Fpdf::Cell(15, 4, $d->lotes->numero);
+        //     Fpdf::SetXY(65, $l);
+        //     Fpdf::Cell(20, 4, $d->lotes->productos->codigo.' '.$d->lotes->productos->nombre);
+        //     Fpdf::SetXY(110, $l);
+        //     Fpdf::Cell(14, 4, $d->cantidad, 0, 0, 'C');
+        //     Fpdf::SetXY(128, $l);
+        //     Fpdf::Cell(14, 4, $d->lotes->productos->unidadmedidas->abreviatura, 0, 0, 'C');
+        //     Fpdf::SetXY(150, $l);
+        //     Fpdf::Cell(30, 4, number_format($d->precio, 2, ',', '.'), 0, 0, 'R');
+        //     $total = $d->cantidad * $d->precio;
+        //     $acumulador += $total;
+        //     Fpdf::SetXY(185, $l);
+        //     Fpdf::Cell(30, 4, number_format($total, 2, ',', '.'), 0, 0, 'R');
+        //     $l += 4;
+        // }
+        // Fpdf::Line(40, 100, 215, 100);
+        // Fpdf::SetFont('Arial', 'B', 8);
+        // Fpdf::SetXY(40, 100);
+        // Fpdf::Cell(80, 5, utf8_decode('REALIZAR LOS PAGOS A NOMBRE DE ALFONSO PEÑARANDA C.I. 10.190.738'));
+        // Fpdf::SetXY(160, 100);
+        // Fpdf::Cell(30, 5, 'BASE IMPONIBLE ');
+        // Fpdf::SetXY(185, 100);
+        // Fpdf::Cell(30, 4, number_format($acumulador, 2, ',', '.'), 0, 0, 'R');
+        // Fpdf::SetXY(40, 104);
+        // Fpdf::Cell(80, 5, 'BANCO PROVINCIAL CTA. NRO. 01080501550200236231');
+        // Fpdf::SetXY(160, 104);
+        // Fpdf::Cell(30, 4, 'IVA 16% ');
+        // Fpdf::SetXY(185, 104);
+        // Fpdf::Cell(30, 4, number_format($acumulador * 0.16, 2, ',', '.'), 0, 0, 'R');
+        // Fpdf::SetXY(40, 108);
+        // Fpdf::Cell(80, 5, 'BANCO MERCANTIL CTA. NRO. 01050749931749061406');
+        // Fpdf::SetXY(160, 108);
+        // Fpdf::Cell(30, 4, 'TOTAL NETO ');
+        // Fpdf::SetXY(185, 108);
+        // Fpdf::Cell(30, 4, number_format($acumulador + ($acumulador * 0.16), 2, ',', '.'), 0, 0, 'R');
     }
 
     /**
