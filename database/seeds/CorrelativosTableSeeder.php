@@ -12,8 +12,8 @@ class CorrelativosTableSeeder extends Seeder
      */
     public function run()
     {
-        Correlativo::create(['documento' => 'FACTURA', 'correlativo' => 0]);
-        Correlativo::create(['documento' => 'NOTAENTREGA', 'correlativo' => 0]);
+        Correlativo::create(['documento' => 'FACTURA', 'correlativo' => 974]);
+        Correlativo::create(['documento' => 'NOTAENTREGA', 'correlativo' => 199]);
         Correlativo::create(['documento' => 'NOTACREDITO', 'correlativo' => 0]);
         Correlativo::create(['documento' => 'NOTADEBITO', 'correlativo' => 0]);
         Correlativo::create(['documento' => 'PAGO', 'correlativo' => 0]);
