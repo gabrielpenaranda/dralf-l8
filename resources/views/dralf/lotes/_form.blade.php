@@ -108,6 +108,23 @@
 
     <div class="columns is-mobile">
         <div class="column is-6 is-offset-3">
+            <div class="field">
+                <div class="control">
+                    <label for="depositos_id" class="is-size-7 has-text-weight-bold">Depósito: </label>
+                    <select name="depositos_id" class="is-size-7">
+                        @foreach ($depositos as $p)
+                            <option value="{{ $p->id }}">
+                                {{ $p->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-mobile">
+        <div class="column is-6 is-offset-3">
             <button type="submit" class="button is-success">Grabar</button>
         </div>
     </div>

@@ -13,7 +13,7 @@
 @include('dralf.layouts._nav')
 
 @section('content')
-    @include('dralf.lotes._form', [ 'lotes' => $lotes, 'productos' => $productos ])
+    @include('dralf.lotes._form', [ 'lotes' => $lotes, 'productos' => $productos, 'depositos' => $depositos ])
 @endsection
 
 @section('javascripts')

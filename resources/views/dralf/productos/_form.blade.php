@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="columns is-mobile">
         <div class="column is-6 is-offset-3">
@@ -133,7 +133,7 @@
             <div class="field">
                 <div class="control">
                     <label for="impuest" class="radio is-size-7 has-text-weight-bold">
-                    Incluye IVA: 
+                    Agregar IVA: 
                         @if ($productos->exists)
                             @if ($productos->impuesto == 1)
                                 @php
@@ -151,7 +151,7 @@
                             $checked1 = "";
                             $checked2 = "";
                             @endphp
-                        @endif 
+                        @endif
                         <br>
                         <input type="radio" name="impuesto" class="is-small" value="1" {{ $checked1 }}/> Si <br>
                         <input type="radio" name="impuesto" class="is-small" value="0" {{ $checked2 }}/> No

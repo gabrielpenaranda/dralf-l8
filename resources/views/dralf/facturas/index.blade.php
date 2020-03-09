@@ -23,11 +23,13 @@
             </div>
             <div class="column is-2">
                 <a class="button is-primary" href="{{ route('facturas.create', ['modulo' => $modulo]) }}">
-                 @if ($modulo == "factura")
+                @if ($modulo == "factura")
                     {{ 'Crear Factura' }}
-                    @elseif ($modulo == "notaentrega")
+                @elseif ($modulo == "notaentrega")
                     {{ 'Crear de Nota de Entrega' }}
-                    @endif
+                @elseif ($modulo == "notaconsignacion")
+                    {{ 'Crear de Nota de Consignación' }}
+                @endif
                 </a>
                 <br>
             </div>
@@ -77,8 +79,8 @@
                                                 {{ method_field('DELETE') }}
                                                 <button class="btn btn-danger" title="Eliminar"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button> --}}
                                                 <div class="buttons has-addons is-centered">
-                                                
-                                                
+
+
                                                 {{-- <a class="button is-primary is-small is-outlined" href="{{ route('detailfacturas.index', ['facturas' => $f->id, 'modulo' => $modulo]) }}" title="Agregar productos"><span class="glyphicon glyphicon-plus" aria-hidden="true">Agregar Productos</span></a> --}}
 
                                                 <a class="button is-primary is-small is-outlined" href="{{ route('facturas.show', ['facturas' => $f->id, 'modulo' => $modulo]) }}" title="Ver factura">Ver</a>

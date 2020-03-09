@@ -5,11 +5,11 @@
     <div class="columns is-mobile">
         <div class="column is-8 is-offset-1">
             <h4 class="title is-4 has-text-centered">
-             @if ($modulo == "factura")
-                    {{ 'Factura' }}
-                    @else
-                    {{ 'Nota de Entrega' }}
-                    @endif
+            @if ($modulo == "factura")
+                {{ 'Factura' }}
+            @else
+                {{ 'Nota de Entrega' }}
+            @endif
             </h4>
         </div>
         <div class="column is-2">
@@ -101,4 +101,3 @@
             href="{{ route('facturas.fprint', ['facturas' => $facturas->id, 'modulo' => $modulo]) }}">Imprimir</a>
     </div>
 </div>
-

@@ -8,7 +8,7 @@ class Lote extends Model
 {
     protected $table = 'lotes';
 
-    protected $fillable = ['fecha_produccion', 'fecha_vencimiento', 'cantidad_producida', 'cantidad_prueba', 'cantidad_disponible', 'numero', 'costo', 'productos_id', 'prueba', 'certificado', 'numero_certificado'];
+    protected $fillable = ['fecha_produccion', 'fecha_vencimiento', 'cantidad_producida', 'cantidad_prueba', 'cantidad_disponible', 'numero', 'costo', 'productos_id', 'depositos_id', 'prueba', 'certificado', 'numero_certificado'];
 
     public $timestamps = false;
 
@@ -44,6 +44,11 @@ class Lote extends Model
     public function productos()
     {
         return $this->belongsTo(Producto::class);
+    }
+
+    public function depositos()
+    {
+        return $this->belongsTo(Deposito::class);
     }
 
 

@@ -44,6 +44,15 @@ Route::middleware('auth')->prefix('dralf')->group(function () {
         Route::get('/facturas-canceladas/{modulo}', 'CobroController@facturas_canceladas')->name('cobros.facturas-canceladas');
     });
 
+    Route::prefix('depositos')->group(function () {
+        Route::get('/', 'DepositoController@index')->name('depositos.index');
+        Route::get('/create', 'DepositoController@create')->name('depositos.create');
+        Route::post('/store', 'DepositoController@store')->name('depositos.store');
+        Route::delete('/destroy/{depositos}', 'DepositoController@destroy')->name('depositos.destroy');
+        Route::get('/edit/{depositos}', 'DepositoController@edit')->name('depositos.edit');
+        Route::put('/update/{depositos}', 'DepositoController@update')->name('depositos.update');
+    });
+
     Route::prefix('detailfacturas')->group(function () {
         Route::get('/{facturas}/{modulo}', 'DetailFacturaController@index')->name('detailfacturas.index');
         Route::get('/create/{facturas}/{modulo}', 'DetailFacturaController@create')->name('detailfacturas.create');

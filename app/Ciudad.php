@@ -22,4 +22,9 @@ class Ciudad extends Model
         return $this->hasMany(Tercero::class);
     }
 
+    public function depositos()
+    {
+        return $table->hasMany(Deposito::class);
+    }
+
 }

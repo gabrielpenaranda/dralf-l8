@@ -8,6 +8,7 @@ use App\Http\Requests\CreateLoteRequest;
 use App\Http\Requests\UpdateLoteRequest;
 use App\Lote;
 use App\Producto;
+use App\Deposito;
 use App\Bitacora;
 use App\PruebaAnticoagulante;
 use App\PruebaDiluente;
@@ -37,13 +38,14 @@ class LoteController extends Controller
   {
     $lotes = new Lote;
     $productos = Producto::all();
+    $depositos = Deposito::all();
     $titulo = 'Crear Lote';
     if (count($productos) == 0)
     {
       session()->flash('error', 'Debe incluir un producto antes de incluir un lote');
       return redirect()->route('lotes.index');
     }
-    return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['titulo' => $titulo]);
+    return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['depositos' => $depositos])->with(['titulo' => $titulo]);
   }
 
   /**
@@ -68,6 +70,7 @@ class LoteController extends Controller
     $lotes->prueba = $prueba->prueba;
     $lotes->costo = 0;
     $lotes->productos_id = $request->get('productos_id');
+    $lotes->depositos_id = $request->get('depositos_id');
     $lotes->numero_certificado = '';
     $lotes->save();
     $bitacoras = new Bitacora;
@@ -95,7 +98,7 @@ class LoteController extends Controller
    */
   public function edit(Lote $lotes)
   {
-    try 
+    try
     {
         if ($lotes->detallefacturas->count() > 0)
         {
@@ -105,15 +108,17 @@ class LoteController extends Controller
         else
         {
           $productos = Producto::all();
+          $depositos = Deposito::all();
           $titulo = 'Editar Lote';
-          return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['titulo' => $titulo]);
+          return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['depositos' => $depositos])->with(['titulo' => $titulo]);
         }
     }
     catch (\Illuminate\Database\QueryException $e) {
         if($e->getCode() == "42S22") {
             $productos = Producto::all();
+            $depositos = Deposito::all();
             $titulo = 'Editar Lote';
-            return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['titulo' => $titulo]);
+            return view('dralf.lotes.form')->with(['lotes' => $lotes])->with(['productos' => $productos])->with(['depositos' => $depositos])->with(['titulo' => $titulo]);
         }
     }
 
@@ -138,6 +143,7 @@ class LoteController extends Controller
     $prueba = DB::table('productos')->where('id', $request->get('productos_id'))->first();
     $lotes->prueba = $prueba->prueba;
     $lotes->productos_id = $request->get('productos_id');
+    $lotes->depositos_id = $request->get('depositos_id');
     $bitacoras = new Bitacora;
     $bitacoras->register($bitacoras, 'U', $lotes->numero, $lotes->id, 'lotes', auth()->user()->id);
     $lotes->update();

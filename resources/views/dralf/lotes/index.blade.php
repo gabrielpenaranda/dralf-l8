@@ -27,6 +27,7 @@
                     <thead>
                         <th class="has-text-left">Número Lote</th>
                         <th class="has-text-left">Producto</th>
+                        <th class="has-text-left">Deposito</th>
                         <th class="has-text-left">Fecha prod.</th>
                         <th class="has-text-left">Fecha venc.</th>
                         <th class="has-text-left">Cant. prod.</th>
@@ -43,6 +44,9 @@
                             </td>
                             <td class="is-size-7 has-text-left">
                                 {{ $l->productos->nombre }}
+                            </td>
+                            <td class="is-size-7 has-text-left">
+                                {{ $l->depositos->nombre }}
                             </td>
                             <td class="is-size-7 has-text-left">
                                 {{ $l->fecha_produccion }}
