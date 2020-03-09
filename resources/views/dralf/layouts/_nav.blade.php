@@ -95,22 +95,10 @@
         <a class="navbar-link is-arrowless">
          Base
         </a>
-
         <div class="navbar-dropdown">
-          @can('tipopersonas.index')
-          <a class="navbar-item" href="{{ route('tipopersonas.index') }}">
-            Tipo de persona
-          </a>
-          @endcan
-          <hr class="navbar-divider">
           @can('unidadmedidas.index')
           <a class="navbar-item" href="{{ route('unidadmedidas.index') }}">
             Unidad de medida
-          </a>
-          @endcan
-          @can('tipoproductos.index')
-          <a class="navbar-item" href="{{ route('tipoproductos.index') }}">
-            Tipo de producto
           </a>
           @endcan
           <hr class="navbar-divider">
@@ -135,8 +123,13 @@
         <a class="navbar-link is-arrowless">
          Terceros
         </a>
-
         <div class="navbar-dropdown">
+            @can('tipopersonas.index')
+                <a class="navbar-item" href="{{ route('tipopersonas.index') }}">
+                    Tipo de persona
+                </a>
+            @endcan
+            <hr class="navbar-divider">
           <a class="navbar-item" href="{{ route('terceros.index') }}">
             Terceros
           </a>
@@ -152,6 +145,28 @@
         </a>
 
         <div class="navbar-dropdown">
+<<<<<<< HEAD
+            @can('tipoproductos.index')
+            <a class="navbar-item" href="{{ route('tipoproductos.index') }}">
+              Tipo de producto
+            </a>
+            @endcan
+            <hr class="navbar-divider">
+              <a class="navbar-item" href="{{ route('depositos.index') }}">
+                Depositos
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="{{ route('productos.index') }}">
+                  Productos
+              </a>
+              <a class="navbar-item" href="{{ route('materiaprimas.index') }}">
+                Materia Prima
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item" href="{{ route('entregas.index') }}">
+                Entregas
+              </a>
+=======
           <a class="navbar-item" href="{{ route('productos.index') }}">
             Productos
           </a>
@@ -162,6 +177,7 @@
           <a class="navbar-item" href="{{ route('entregas.index') }}">
             Entregas
           </a>
+>>>>>>> dfc9a4d85eb0563be9838aa1af648467dc79e7f8
         </div>
       </div>
 
