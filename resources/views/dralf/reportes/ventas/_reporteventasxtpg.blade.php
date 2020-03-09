@@ -62,25 +62,25 @@ $acumulador_iva = 0;
                         $acumulador = 0;
                         @endphp
                         @foreach ($productos as $p)
-                        @if ($aproducto[$p->id] > 0)
-                        <tr>
-                            <td class="is-size-7 has-text-centered">
-                                {{ $p->codigo }}
-                            </td>
-                            <td class="is-size-7 has-text-left">
-                                {{ $p->nombre }}
-                            </td>
-                            <td class="is-size-7 has-text-centered">
-                                {{ $aproducto[$p->id] }}
-                            </td>
-                            <td class="is-size-7 has-text-right">
-                                {{ number_format($amonto[$p->id], 2, ',', '.') }}
-                            </td>
-                        </tr>
-                        @php
-                        $acumulador += $amonto[$p->id]
-                        @endphp
-                        @endif
+                            @if ($aproducto[$p->id] > 0)
+                            <tr>
+                                <td class="is-size-7 has-text-centered">
+                                    {{ $p->codigo }}
+                                </td>
+                                <td class="is-size-7 has-text-left">
+                                    {{ $p->nombre }}
+                                </td>
+                                <td class="is-size-7 has-text-centered">
+                                    {{ $aproducto[$p->id] }}
+                                </td>
+                                <td class="is-size-7 has-text-right">
+                                    {{ number_format($amonto[$p->id], 2, ',', '.') }}
+                                </td>
+                            </tr>
+                                @php
+                                $acumulador += $amonto[$p->id]
+                                @endphp
+                            @endif
                         @endforeach
                         <tr>
                             <td class="is-size-7 has-text-centered">

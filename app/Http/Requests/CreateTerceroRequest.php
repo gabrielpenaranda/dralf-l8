@@ -34,9 +34,9 @@ class CreateTerceroRequest extends FormRequest
                 'rif' => 'required|unique:terceros,rif|min:10|max:10',
                 'nombre' => 'required|unique:terceros,nombre|min:5|max:80',
                 'razon_social' => 'required|unique:terceros',
-                'direccion' => 'required|min:20|max:200',
+                'direccion' => 'required|min:5|max:200',
                 'telefono' => 'max:50',
-                'email' => 'email|max:50',
+                'email' => 'max:50',
                 'ciudades_id' => 'required',
             ];
     }

@@ -145,6 +145,7 @@
         </a>
 
         <div class="navbar-dropdown">
+<<<<<<< HEAD
             @can('tipoproductos.index')
             <a class="navbar-item" href="{{ route('tipoproductos.index') }}">
               Tipo de producto
@@ -165,6 +166,18 @@
               <a class="navbar-item" href="{{ route('entregas.index') }}">
                 Entregas
               </a>
+=======
+          <a class="navbar-item" href="{{ route('productos.index') }}">
+            Productos
+          </a>
+          {{-- <a class="navbar-item" href="{{ route('materiaprimas.index') }}">
+            Materia Prima
+          </a> --}}
+          <hr class="navbar-divider">
+          <a class="navbar-item" href="{{ route('entregas.index') }}">
+            Entregas
+          </a>
+>>>>>>> dfc9a4d85eb0563be9838aa1af648467dc79e7f8
         </div>
       </div>
 
@@ -174,10 +187,10 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="#">
+          {{-- <a class="navbar-item" href="#">
             Formulas
           </a>
-          <hr class="navbar-divider">
+          <hr class="navbar-divider"> --}}
           <a class="navbar-item" href="{{ route('lotes.index') }}">
             Lotes
           </a>
@@ -238,7 +251,7 @@
         </div>
       </div>
 
-      <div class="navbar-item has-dropdown is-hoverable">
+      {{-- <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link is-arrowless">
          Cobros
         </a>
@@ -251,7 +264,7 @@
             Canceladas
           </a>
         </div>
-      </div>
+      </div> --}}
 
     </div>
 

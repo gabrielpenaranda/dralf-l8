@@ -138,5 +138,8 @@ class PermissionsTableSeeder extends Seeder
 
         $user = User::find(2);
         $user->assignRole('Admin');
+
+        $user = User::find(3);
+        $user->assignRole('Admin');
     }
 }
