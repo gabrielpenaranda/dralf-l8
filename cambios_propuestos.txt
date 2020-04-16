@@ -1,4 +1,0 @@
-Reporte ventas x producto (general de todos y por cada producto con monto)
-Reporte ventas x cliente (idem)
-agregar en facturas y detallefacturas monto en us$
-cambiar codigo por lote en impresion facturas y notaentregas
