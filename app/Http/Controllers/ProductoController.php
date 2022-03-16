@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
-use App\Producto;
-use App\UnidadMedida;
-use App\Bitacora;
-use App\TipoProducto;
-use App\Divisa;
+use App\Models\Producto;
+use App\Models\UnidadMedida;
+use App\Models\Bitacora;
+use App\Models\TipoProducto;
+use App\Models\Divisa;
 
 class ProductoController extends Controller
 {

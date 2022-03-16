@@ -6,8 +6,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
     @include('dralf.prueba._show', ['prueba' => $prueba])
 @endsection

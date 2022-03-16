@@ -1,80 +1,3 @@
-{{-- <nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand pw-logo" href="{{ url('/dralf') }}">
-                <img src="{{ asset('img/logo-100.png') }}" alt="LabDrAlf">
-        </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Base <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-item"><a href="">Tipo de Persona</a></li>
-                        <li class="dropdown-item"><a href="">Unidad de Medida</a></li>
-                        <li class="dropdown-item"><a href="{{ route('ciudades.index') }}">Ciudad</a></li>
-                        <li class="dropdown-item"><a href="{{ route('estados.index') }}">Estado</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Terceros <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('terceros.index') }}">Terceros</a></li>
-                        <li class="dropdown-item"><a href="">Personas</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Inventario <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ route('productos.index') }}">Productos</a></li>
-                        <li class="dropdown-item"><a href="">Materia Prima</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Producción <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-item"><a href="{{ route('lotes.index') }}">Lotes</a></li>
-                        <li class="dropdown-item"><a href="{{ route('pruebas.index') }}">Pruebas</a></li>
-                        <li class="dropdown-item"><a href="">Formulas</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Ventas <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-item"><a href="{{ route('facturas.index', ['modulo' => 'factura']) }}">Facturas</a></li>
-                            <li class="dropdown-item"><a href="{{ route('notaentrega.index', ['modulo' => 'notaentrega']) }}">Notas de Entrega</a></li>
-                            <li class="dropdown-item"><a href="{{ route('reportefactura.index') }} ">Reportes</a></li>
-                        </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Cobros <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li class="dropdown-item"><a href="{{ route('cobros.index', ['modulo' => 'nocancel']) }}">Registro</a></li>
-                        <li class="dropdown-item"><a href="{{ route('cobros.facturas-canceladas', ['modulo' => 'cancel']) }}">Facturas Canceladas</a></li>
-                    </ul>
-                </li>
-
-                <li>
-                    <a href="{{ route('logout') }}"
-                    onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
-                    Salir
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                    </form>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav> --}}
-
 <nav class="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="{{ url('/dralf') }}">
@@ -145,7 +68,6 @@
         </a>
 
         <div class="navbar-dropdown">
-<<<<<<< HEAD
             @can('tipoproductos.index')
             <a class="navbar-item" href="{{ route('tipoproductos.index') }}">
               Tipo de producto
@@ -166,18 +88,6 @@
               <a class="navbar-item" href="{{ route('entregas.index') }}">
                 Entregas
               </a>
-=======
-          <a class="navbar-item" href="{{ route('productos.index') }}">
-            Productos
-          </a>
-          {{-- <a class="navbar-item" href="{{ route('materiaprimas.index') }}">
-            Materia Prima
-          </a> --}}
-          <hr class="navbar-divider">
-          <a class="navbar-item" href="{{ route('entregas.index') }}">
-            Entregas
-          </a>
->>>>>>> dfc9a4d85eb0563be9838aa1af648467dc79e7f8
         </div>
       </div>
 

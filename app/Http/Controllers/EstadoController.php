@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateEstadoRequest;
 use App\Http\Requests\UpdateEstadoRequest;
-use App\Estado;
-use App\Bitacora;
+use App\Models\Estado;
+use App\Models\Bitacora;
 
 class EstadoController extends Controller
 {

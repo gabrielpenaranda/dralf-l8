@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateCiudadRequest;
 use App\Http\Requests\UpdateCiudadRequest;
-use App\Ciudad;
-use App\Estado;
-use App\Bitacora;
+use App\Models\Ciudad;
+use App\Models\Estado;
+use App\Models\Bitacora;
 
 class CiudadController extends Controller
 {
@@ -19,7 +19,7 @@ class CiudadController extends Controller
     public function index()
     {
         $ciudades = Ciudad::orderBy('nombre', 'asc')->paginate(7);
-        return view('dralf.ciudades.index')->with(['ciudades' => $ciudades]);
+        return view('dralf.ciudades.index', compact('ciudades'));
     }
 
     /**
@@ -32,7 +32,7 @@ class CiudadController extends Controller
         $ciudades = new Ciudad;
         $estados = Estado::orderBy('nombre', 'asc')->get();
         $titulo = 'Crear Ciudad';
-        return view('dralf.ciudades.form')->with(['ciudades' => $ciudades, 'estados' => $estados, 'titulo' => $titulo]);
+        return view('dralf.ciudades.form', compact('ciudades', 'estados', 'titulo'));
     }
 
     /**
@@ -74,7 +74,7 @@ class CiudadController extends Controller
     {
         $titulo = 'Editar Ciudad';
         $estados = Estado::orderBy('nombre', 'asc')->get();
-        return view('dralf.ciudades.form')->with(['ciudades' => $ciudades, 'estados' => $estados, 'titulo' => $titulo]);
+        return view('dralf.ciudades.form', compact('ciudades', 'estados', 'titulo'));
     }
 
     /**

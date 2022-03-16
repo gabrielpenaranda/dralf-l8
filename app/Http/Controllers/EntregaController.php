@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Bitacora;
-use App\Correlativo;
-use App\DetalleEntrega;
-use App\DetalleFactura;
-use App\Entrega;
-use App\Factura;
+use App\Models\Bitacora;
+use App\Models\Correlativo;
+use App\Models\DetalleEntrega;
+use App\Models\DetalleFactura;
+use App\Models\Entrega;
+use App\Models\Factura;
 use Illuminate\Http\Request;
 
 class EntregaController extends Controller
@@ -22,7 +22,29 @@ class EntregaController extends Controller
         $facturas = Factura::orderBy('numero', 'desc')->paginate(10);
         $modulo = '';
 
-        return view('dralf.entregas.index')->with(['facturas' => $facturas, 'modulo' => $modulo]);
+        return view('dralf.entregas.index', compact('facturas', 'modulo'));
+    }
+
+    /**
+     * Display a listing of the resource._
+     *
+     * @param string $modulo
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Factura $facturas, $modulo)
+    {
+        if ($modulo == 'factura') {
+            $titulo = 'Ver Entrega (Factura)';
+        } else {
+            $titulo = 'Ver Entrega (Nota de Entrega)';
+        }
+        $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lotes_id', 'asc')->get();
+        $entregas = Entrega::where('facturas_id', $facturas->id)->orderBy('numero', 'desc')->get();
+        foreach($entregas as $e) {
+            $detalleentregas[] = DetalleEntrega::where('entregas_id', $e->id)->get();
+        }
+        return view('dralf.entregas.show', compact('facturas', 'detallefacturas', 'entregas', 'detalleentregas', 'modulo', 'titulo'));
     }
 
     /**
@@ -41,7 +63,7 @@ class EntregaController extends Controller
         }
         $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lotes_id', 'asc')->paginate(10);
 
-        return view('dralf.entregas.total')->with(['facturas' => $facturas, 'detallefacturas' => $detallefacturas, 'modulo' => $modulo, 'titulo' => $titulo]);
+        return view('dralf.entregas.total', compact('facturas', 'detallefacturas', 'modulo', 'titulo'));
     }
 
     /**
@@ -96,7 +118,7 @@ class EntregaController extends Controller
         }
         $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lotes_id', 'asc')->paginate(10);
 
-        return view('dralf.entregas.parcial')->with(['facturas' => $facturas, 'detallefacturas' => $detallefacturas, 'modulo' => $modulo, 'titulo' => $titulo]);
+        return view('dralf.entregas.parcial', compact('facturas', 'detallefacturas', 'modulo', 'titulo'));
     }
 
     /**
@@ -150,25 +172,4 @@ class EntregaController extends Controller
         return redirect()->route('entregas.index');
     }
 
-    /**
-     * Display a listing of the resource._
-     *
-     * @param string $modulo
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Factura $facturas, $modulo)
-    {
-        if ($modulo == 'factura') {
-            $titulo = 'Ver Entrega (Factura)';
-        } else {
-            $titulo = 'Ver Entrega (Nota de Entrega)';
-        }
-        $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lotes_id', 'asc')->get();
-        $entregas = Entrega::where('facturas_id', $facturas->id)->orderBy('numero', 'desc')->get();
-        foreach($entregas as $e) {
-            $detalleentregas[] = DetalleEntrega::where('entregas_id', $e->id)->get();
-        }
-        return view('dralf.entregas.show')->with(['facturas' => $facturas, 'detallefacturas' => $detallefacturas, 'entregas' => $entregas, 'detalleentregas' => $detalleentregas, 'modulo' => $modulo, 'titulo' => $titulo]);
-    }
 }

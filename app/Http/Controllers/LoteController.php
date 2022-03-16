@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateLoteRequest;
 use App\Http\Requests\UpdateLoteRequest;
-use App\Lote;
-use App\Producto;
-use App\Deposito;
-use App\Bitacora;
-use App\PruebaAnticoagulante;
-use App\PruebaDiluente;
-use App\PruebaLisante;
-use App\PruebaRinse;
+use App\Models\Lote;
+use App\Models\Producto;
+use App\Models\Deposito;
+use App\Models\Bitacora;
+use App\Models\PruebaAnticoagulante;
+use App\Models\PruebaDiluente;
+use App\Models\PruebaLisante;
+use App\Models\PruebaRinse;
 use Fpdf;
 
 class LoteController extends Controller

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePruebaLisanteRequest;
 use App\Http\Requests\UpdatePruebaLisanteRequest;
-use App\PruebaLisante;
-use App\Lote;
-use App\Bitacora;
+use App\Models\PruebaLisante;
+use App\Models\Lote;
+use App\Models\Bitacora;
 
 class PruebaLisanteController extends Controller
 {

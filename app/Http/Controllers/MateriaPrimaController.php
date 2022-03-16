@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateMateriaPrimaRequest;
 use App\Http\Requests\UpdateMateriaPrimaRequest;
-use App\MateriaPrima;
-use App\UnidadMedida;
-use App\Bitacora;
+use App\Models\MateriaPrima;
+use App\Models\UnidadMedida;
+use App\Models\Bitacora;
 
 class MateriaPrimaController extends Controller
 {

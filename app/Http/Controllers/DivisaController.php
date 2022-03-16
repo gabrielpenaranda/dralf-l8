@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Producto;
-use App\Bitacora;
-use App\Divisa;
+use App\Models\Producto;
+use App\Models\Bitacora;
+use App\Models\Divisa;
 
 class DivisaController extends Controller
 {
@@ -89,7 +89,7 @@ class DivisaController extends Controller
     {
         $divisas = Divisa::find(1);
         $titulo = 'Editar Divisa';
-        return view('dralf.divisas.form')->with(['divisas' => $divisas, 'titulo' => $titulo]);
+        return view('dralf.divisas.form', compact('divisas', 'titulo'));
     }
 
     /**

@@ -8,8 +8,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
     @include('dralf.facturas._detalle', ['productos' => $productos, 'terceros' => $terceros, 'modulo' => $modulo, 'fproductos' => $fproductos, 'facturas' => $facturas ])
 @endsection

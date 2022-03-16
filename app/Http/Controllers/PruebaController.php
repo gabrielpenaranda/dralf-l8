@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePruebaRequest;
 use App\Http\Requests\UpdatePruebaRequest;
-use App\Prueba;
-use App\Lote;
+use App\Models\Prueba;
+use App\Models\Lote;
 
 class PruebaController extends Controller
 {

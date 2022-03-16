@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTerceroRequest;
 use App\Http\Requests\UpdateTerceroRequest;
-use App\Tercero;
-use App\Bitacora;
-use App\Ciudad;
-use App\Persona;
+use App\Models\Tercero;
+use App\Models\Bitacora;
+use App\Models\Ciudad;
+use App\Models\Persona;
 
 class TerceroController extends Controller
 {

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePruebaAnticoagulanteRequest;
 use App\Http\Requests\UpdatePruebaAnticoagulanteRequest;
-use App\PruebaAnticoagulante;
-use App\Lote;
-use App\Bitacora;
+use App\Models\PruebaAnticoagulante;
+use App\Models\Lote;
+use App\Models\Bitacora;
 
 class PruebaAnticoagulanteController extends Controller
 {

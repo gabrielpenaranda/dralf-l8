@@ -6,8 +6,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
     <br>
     <div class="container">

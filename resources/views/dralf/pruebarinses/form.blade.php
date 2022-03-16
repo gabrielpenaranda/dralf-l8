@@ -8,8 +8,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
     @include('dralf.pruebarinses._form', ['pruebarinses' => $pruebarinses, 'lotes' => $lotes])
 @endsection

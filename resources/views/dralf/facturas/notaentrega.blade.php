@@ -8,8 +8,6 @@
 
 @section('content')
 
-
-
 <div class="container">
 
     <div class="columns is-mobile">

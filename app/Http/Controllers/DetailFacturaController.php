@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateDetalleFacturaRequest;
 use App\Http\Requests\UpdateDetalleFacturaRequest;
-use App\Factura;
-use App\DetalleFactura;
-use App\Lote;
+use App\Models\Factura;
+use App\Models\DetalleFactura;
+use App\Models\Lote;
 use Laracasts\Flash;
 
 class DetailFacturaController extends Controller
@@ -22,7 +22,7 @@ class DetailFacturaController extends Controller
   public function index(Factura $facturas, $modulo)
   {
     $detallefacturas = DetalleFactura::where('facturas_id', $facturas->id)->orderBy('lote_id', 'asc')->paginate(10);
-    return view('dralf.detallefacturas.index')->with(['facturas' => $facturas])->with(['detallefacturas' => $detallefacturas])->with(['modulo' => $modulo]);
+    return view('dralf.detallefacturas.index', compact('facturas', 'detallefacturas', 'modulo'));
   }
 
   /**
@@ -37,7 +37,7 @@ class DetailFacturaController extends Controller
     $detallefacturas = new DetalleFactura;
     $lote = Lote::where('cantidad_disponible_lote', '>', '0')->orderBy('fecha_produccion_lote', 'asc')->get();
     // dd($lote);
-    return view('dralf.detallefacturas.create')->with(['lote' => $lote])->with(['facturas' => $facturas])->with(['detallefacturas' => $detallefacturas])->with(['modulo' => $modulo]);
+    return view('dralf.detallefacturas.create', compact('lote', 'facturas', 'detallefacturas', 'modulo'));
   }
 
   /**
@@ -56,9 +56,9 @@ class DetailFacturaController extends Controller
     if ($request->get('cantidad_detalle_facturas') > $lote->cantidad_disponible_lote) {
       session()->flash('error', 'Cantidad es mayor a la disponible')->error()->important();
       if ($modulo == 'facturas') {
-        return redirect()->route('facturass.index', ['modulo' => $modulo]);
+        return redirect()->route('facturass.index', compact('modulo'));
       } else {
-        return redirect()->route('notaentrega.index', ['modulo' => $modulo]);
+        return redirect()->route('notaentrega.index', compact('modulo'));
       }
     } else {
       $lote->cantidad_disponible_lote -= $request->get('cantidad_detalle_facturas');
@@ -73,11 +73,11 @@ class DetailFacturaController extends Controller
     $detallefacturas->save();
     session()->flash('message', 'Item de facturas creado con éxito!');
     if ($modulo == 'facturas') {
-      return redirect()->route('facturass.index', ['modulo' => $modulo]);
+      return redirect()->route('facturass.index', compact('modulo'));
     }
     else
     {
-      return redirect()->route('notaentrega.index', ['modulo' => $modulo]);
+      return redirect()->route('notaentrega.index', compact('modulo'));
     }
   }
 

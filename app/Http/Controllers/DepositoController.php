@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateDepositoRequest;
 use App\Http\Requests\UpdateDepositoRequest;
-use App\Deposito;
-use App\Ciudad;
-use App\Bitacora;
+use App\Models\Deposito;
+use App\Models\Ciudad;
+use App\Models\Bitacora;
 
 class DepositoController extends Controller
 {
@@ -19,7 +19,7 @@ class DepositoController extends Controller
     public function index()
     {
         $depositos = Deposito::orderBy('nombre', 'asc')->paginate(7);
-        return view('dralf.depositos.index')->with(['depositos' => $depositos]);
+        return view('dralf.depositos.index', compact('depositos'));
     }
 
     /**
@@ -32,7 +32,7 @@ class DepositoController extends Controller
         $depositos = new Deposito;
         $ciudades = Ciudad::orderBy('nombre', 'asc')->get();
         $titulo = 'Crear Deposito';
-        return view('dralf.depositos.form')->with(['depositos' => $depositos, 'ciudades' => $ciudades, 'titulo' => $titulo]);
+        return view('dralf.depositos.form', compact('depositos', 'ciudades', 'titulo'));
     }
 
     /**
@@ -77,7 +77,7 @@ class DepositoController extends Controller
     {
         $titulo = 'Editar Deposito';
         $ciudades = Ciudad::orderBy('nombre', 'asc')->get();
-        return view('dralf.depositos.form')->with(['depositos' => $depositos, 'ciudades' => $ciudades, 'titulo' => $titulo]);
+        return view('dralf.depositos.form', compact('depositos', 'ciudades', 'titulo'));
     }
 
     /**

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{ asset('vendor/jquery-ui/jquery-ui.structure.min.css') }}">
 @endsection
 
-@include('dralf.layouts._nav')
 
 @section('content')
     @include('dralf.cobro._form', [ 'factura' => $factura, 'cobro' => $cobro ])

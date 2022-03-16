@@ -16,36 +16,34 @@
 
     <!-- Styles -->
     @section('stylesheets')
-        {{-- <link  rel="stylesheet" href="{{ asset('css/normalize.css') }}"> --}}
-        {{-- <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+       
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-        {{-- <link rel="stylesheet" href="{{ asset('css/fontawesome-all.min.css') }}"> --}}
-        {{-- <link rel="stylesheet" href="{{ asset('css/gpg.css') }}"> --}}
+        {{-- <link rel="stylesheet" href="{{ asset('css/bulma.min.css') }}"> --}}
+        
     @show
 </head>
 <body class="has-navbar-fixed-top">
     <div id="app">
         @include('layouts._errors')
         @include('layouts._message')
-
+        @include('dralf.layouts._nav')
         @yield('content')
     </div>
 
     <!-- Scripts -->
     @section('javascripts')
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-        {{-- <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script> --}}
+        {{-- <script type="text/javascript" src="{{ asset('js/jquery-3.4.1.min.js') }}"></script> --}}
         <script>
-//$(document).ready(function() {
-//
-  //            $(".navbar-burger").click(function() {
-//
-  //                $(".navbar-burger").toggleClass("is-active");
-    //              $(".navbar-menu").toggleClass("is-active");
-//
-  //            });
-    //        });
+            //        $(document).ready(function() {
+            //
+            //            $(".navbar-burger").click(function() {
+            //
+            //                $(".navbar-burger").toggleClass("is-active");
+            //              $(".navbar-menu").toggleClass("is-active");
+            //
+            //            });
+            //        });
         </script>
         <script>
             $('.confirmation').on('click', function () {

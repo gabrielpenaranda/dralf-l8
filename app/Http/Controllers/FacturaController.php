@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Bitacora;
-use App\Correlativo;
-use App\DetalleFactura;
-use App\Factura;
 use App\Http\Requests\CreateFacturaRequest;
 use App\Http\Requests\UpdateFacturaRequest;
-use App\Lote;
-use App\Producto;
-use App\Tercero;
+use App\Models\Bitacora;
+use App\Models\Correlativo;
+use App\Models\DetalleFactura;
+use App\Models\Factura;
+use App\Models\Lote;
+use App\Models\Producto;
+use App\Models\Tercero;
 use Fpdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;

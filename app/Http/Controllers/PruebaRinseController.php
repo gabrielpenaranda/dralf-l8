@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePruebaRinseRequest;
 use App\Http\Requests\UpdatePruebaRinseRequest;
-use App\PruebaRinse;
-use App\Lote;
-use App\Bitacora;
+use App\Models\PruebaRinse;
+use App\Models\Lote;
+use App\Models\Bitacora;
 
 class PruebaRinseController extends Controller
 {

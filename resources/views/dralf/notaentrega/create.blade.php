@@ -6,8 +6,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
     @include('dralf.notaentrega._form', [ 'factura' => $factura , 'cliente' => $cliente, 'modulo' => $modulo ])
 @endsection

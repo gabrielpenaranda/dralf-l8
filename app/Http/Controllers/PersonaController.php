@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreatePersonaRequest;
 use App\Http\Requests\UpdatePersonaRequest;
-use App\Tercero;
-use App\TipoPersona;
-use App\Bitacora;
-use App\Persona;
+use App\Models\Tercero;
+use App\Models\TipoPersona;
+use App\Models\Bitacora;
+use App\Models\Persona;
 
 class PersonaController extends Controller
 {

@@ -6,12 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\CreateNotaEntregaRequest;
 use App\Http\Requests\UpdateNotaEntregaRequest;
-use App\Factura;
-use App\DetalleFactura;
-use App\Tercero;
-use App\Producto;
-use App\Lote;
-use App\Correlativo;
+use App\Models\Factura;
+use App\Models\DetalleFactura;
+use App\Models\Tercero;
+use App\Models\Producto;
+use App\Models\Lote;
+use App\Models\Correlativo;
 
 class NotaEntregaController extends Controller
 {

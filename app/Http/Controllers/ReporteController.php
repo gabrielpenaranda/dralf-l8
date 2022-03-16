@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Factura;
-use App\Producto;
-use App\Tercero;
-use App\Lote;
-use App\DetalleFactura;
+use App\Models\Factura;
+use App\Models\Producto;
+use App\Models\Tercero;
+use App\Models\Lote;
+use App\Models\DetalleFactura;
 
 class ReporteController extends Controller
 {

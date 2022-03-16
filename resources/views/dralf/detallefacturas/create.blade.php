@@ -10,7 +10,6 @@
     @parent
 @endsection
 
-@include('dralf.layouts._nav')
 
 @section('content')
     @include('dralf.detallefactura._form', [ 'lote' => $lote, 'factura' => $factura, 'detallefactura' => $detallefactura, 'modulo' => $modulo ])

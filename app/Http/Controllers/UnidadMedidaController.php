@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateUnidadMedidaRequest;
 use App\Http\Requests\UpdateUnidadMedidaRequest;
-use App\UnidadMedida;
-use App\Bitacora;
+use App\Models\UnidadMedida;
+use App\Models\Bitacora;
 
 class UnidadMedidaController extends Controller
 {

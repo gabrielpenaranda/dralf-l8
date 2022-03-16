@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateTipoPersonaRequest;
 use App\Http\Requests\UpdateTipoPersonaRequest;
-use App\TipoPersona;
-use App\Bitacora;
+use App\Models\TipoPersona;
+use App\Models\Bitacora;
 
 class TipoPersonaController extends Controller
 {

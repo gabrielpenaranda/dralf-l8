@@ -10,8 +10,6 @@
 <link rel="stylesheet" href="{{ asset('css/jquery-ui.structure.min.css') }}">
 @endsection
 
-@include('dralf.layouts._nav')
-
 @section('content')
 
 <div class="container">
